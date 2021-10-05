@@ -1,0 +1,28 @@
+.search{
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+input.src{
+    text-align: center;
+    padding: 9px, 10px,9px,32px;
+    outline: none;
+    font-size: 18px;
+    border-radius: 25px;
+    color:#444;
+    border:3px solid #4D9160;
+
+    background: #fff
+        no-repeat 9px center;
+        width: 300px;
+        transition: all .5s;
+}
+
+input.src:hover{
+    width: 500px;
+    background-color: #fff;
+    border-color: #71D58E;
+    box-shadow: 0 0 5px #6dcff680;
+}

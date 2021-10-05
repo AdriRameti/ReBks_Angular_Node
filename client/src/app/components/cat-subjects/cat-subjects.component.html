@@ -1,0 +1,11 @@
+<div class="wrapper-cat">
+    <h3>Somos Recycled Books</h3>
+    <br/>
+    <br/>
+    <div class="img-area">
+        <div class="single-img" *ngFor = "let datos of listSubjects">
+            <a class="btn-subjects" [routerLink]="['/books', datos]">{{datos}}</a>
+            <br/><br/><br/><br/><br/><br/>
+        </div>
+    </div>
+</div>

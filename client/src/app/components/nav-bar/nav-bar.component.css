@@ -1,0 +1,90 @@
+.content-all h1{
+    /* position: relative;
+    left: 1150px; */
+    text-align: center;
+    color:#4D9160;
+    font-size: 80px;
+}
+.barra{
+    font-family: Arial, Helvetica, sans-serif;
+    width: 10%;
+    height: 9%;
+    position: fixed;
+    top:0;
+    transition: .4s all;
+    z-index: 1;
+}
+
+.barra ul{
+    padding: 0;
+    text-align: center;
+}
+
+.barra li{
+    transition: .3s all;
+    list-style: none;
+}
+
+.barra a{
+    text-decoration: none;
+    list-style: none;
+    transition: .3s all;
+    font-size: 0;
+    padding: 0;
+}
+
+.barra h2{
+    text-align: center;
+    color: black;
+    padding: 7px;
+    padding-bottom: 7px;
+
+    font-size: 0;
+
+}
+
+.barra i{
+    padding-top: 50px;
+    padding-left: 15px;
+    font-size: 30px;
+}
+
+.barra:hover{
+    padding-top: 50px;
+    cursor: pointer;
+    width: 35%;
+    height: 100%;
+    background-color:#67C281;
+}
+
+.barra:hover h2{
+    font-size: 35px;
+
+}
+
+.barra:hover a{
+    font-size: 20px;
+    color: black;
+    display: block;
+    padding: 15px;
+}
+
+/* .barra:hover i{
+    height: 0;
+} */
+
+.barra:hover li{
+    border-top: 1px solid black;
+    width: 100%;
+}
+
+.barra:hover ul:last-of-type{
+    border-bottom: 1px solid black;
+}
+
+.barra:hover a:hover{
+    font-size: 25px;
+    padding: 30px 0px;
+    background-color:#DDFAE5;
+    color:black;
+}

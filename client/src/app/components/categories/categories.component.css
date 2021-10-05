@@ -1,0 +1,25 @@
+.wrapper-cat{
+    text-align: center;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.img-area{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.single-img{
+    padding: 0 20px 20px;
+    flex-basis: 25%;
+}
+
+img:hover{
+    opacity: .4;
+    transition: .5s;
+    cursor: pointer;
+}
+

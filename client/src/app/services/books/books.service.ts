@@ -16,4 +16,8 @@ export class BooksService {
   findDetailsBook(slug:string):Observable <any>{
     return this.http.get(environment.url+'/books/'+slug);
   }
+
+  findAllBooks():Observable <any>{
+    return this.http.get(environment.url+'/books');
+  }
 }

@@ -16,6 +16,9 @@ import { BooksComponent } from './pages/books/books.component';
 import { CatBooksComponent } from './components/cat-books/cat-books.component';
 import { DetailsComponent } from './pages/details/details.component';
 import { CatDetailsComponent } from './components/cat-details/cat-details.component';
+import { AllBooksComponent } from './components/cat-books/all-books.component';
+import { AllCoursesComponent } from './components/cat-courses/all-courses.component';
+
 
 @NgModule({
   declarations: [
@@ -25,13 +28,15 @@ import { CatDetailsComponent } from './components/cat-details/cat-details.compon
     HomeComponent,
     SearchComponent,
     CoursesComponent,
-    CatCoursesComponent,
+    // CatCoursesComponent,
     SubjectsComponent,
     CatSubjectsComponent,
     BooksComponent,
-    CatBooksComponent,
+    // CatBooksComponent,
     DetailsComponent,
-    CatDetailsComponent
+    CatDetailsComponent,
+    // AllCoursesComponent,
+    // AllBooksComponent
   ],
   imports: [
     BrowserModule,

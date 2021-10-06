@@ -21,6 +21,7 @@ export class CatBooksComponent implements OnInit {
     this.obtenerLibros();
   }
 
+
   obtenerLibros(){
     let asignaturas : string | null = localStorage.getItem('asignatura');
     let curso : number = parseInt(localStorage.getItem('curso') || "0");

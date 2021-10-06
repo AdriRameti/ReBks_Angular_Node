@@ -17,4 +17,8 @@ export class CoursesService {
   findSubjects(tituEnsen: string,curso:string) :Observable<any>{
     return this.http.get(environment.url+'/courses/'+tituEnsen+'/'+curso);
   }
+
+  findAllCourses():Observable <any>{
+    return this.http.get(environment.url+'/courses');
+  }
 }

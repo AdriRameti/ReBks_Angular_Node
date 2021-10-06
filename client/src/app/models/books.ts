@@ -5,12 +5,14 @@ export interface Books{
     asignatura:string,
     titulo:string,
     editorial:string,
-    año:number,
+    any:number,
     tapa:string,
     estado:string,
     descripcion:string,
     precio:string,
-    img: Images
+    img: Images,
+    slug:string,
+    _id:string
 }
 
 export interface Images{

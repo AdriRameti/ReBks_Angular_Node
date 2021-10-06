@@ -15,7 +15,7 @@ const bookSchema = mongoose.Schema({
     asignatura:{type:String},
     titulo:{type:String} ,
     editorial:{type:String},
-    año: {type:Number} ,
+    any: {type:Number} ,
     tapa:{type:String} ,
     estado:{type:String,} ,
     descripcion:{type:String} ,

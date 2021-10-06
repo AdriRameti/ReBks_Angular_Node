@@ -14,6 +14,8 @@ import { SubjectsComponent } from './pages/subjects/subjects.component';
 import { CatSubjectsComponent } from './components/cat-subjects/cat-subjects.component';
 import { BooksComponent } from './pages/books/books.component';
 import { CatBooksComponent } from './components/cat-books/cat-books.component';
+import { DetailsComponent } from './pages/details/details.component';
+import { CatDetailsComponent } from './components/cat-details/cat-details.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { CatBooksComponent } from './components/cat-books/cat-books.component';
     SubjectsComponent,
     CatSubjectsComponent,
     BooksComponent,
-    CatBooksComponent
+    CatBooksComponent,
+    DetailsComponent,
+    CatDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -12,4 +12,8 @@ export class BooksService {
   findBooks(asignaturas:string,curso:number,tituEnsen:string): Observable <any>{
     return this.http.get(environment.url+'/books/'+asignaturas+'/'+curso+'/'+tituEnsen);
   }
+
+  findDetailsBook(slug:string):Observable <any>{
+    return this.http.get(environment.url+'/books/'+slug);
+  }
 }

@@ -43,6 +43,18 @@ exports.findThisBook = async (req,res) => {
         console.log(e);
     }
 }
+
+exports.findDetailsBook = async (req,res)=>{
+    try{
+        const Books = await book.find({slug:req.params.slug});
+        if(!Books){
+            console.log("No se ha encontrado el details del libro");
+        }
+        res.json(Books);
+    }catch(e){
+        console.log(e);
+    }
+}
 exports.updateBook = async (req,res) =>{
     try{
         const {ensenanza,curso,asignatura,titulo,editorial,año,tapa,descripcion} = req.body;

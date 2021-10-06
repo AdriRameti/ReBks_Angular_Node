@@ -2,7 +2,7 @@
 
     <div class="flex">
 
-      <div class="card" *ngFor="let datos of listBooks">
+      <div class="card" *ngFor="let datos of listBooks" [routerLink]="['/details',datos.slug]">
         <img src="{{datos.img.portada}}" alt="">
         <div class="card-body">
           <h3>{{datos.titulo}}</h3>

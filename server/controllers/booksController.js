@@ -43,7 +43,17 @@ exports.findThisBook = async (req,res) => {
         console.log(e);
     }
 }
+exports.findSearchBook = async (req,res) =>{
+    try{
+        const Book = await book.find({asignatura:{$regex:'.*'+req.params.search+'.*'}});
+        if(!Book){
+            console.log('No se encntro el libro de la busqueda');
+        }
+        res.json(Book);
+    }catch(e){
 
+    }
+}
 exports.findDetailsBook = async (req,res)=>{
     try{
         const Books = await book.find({slug:req.params.slug});

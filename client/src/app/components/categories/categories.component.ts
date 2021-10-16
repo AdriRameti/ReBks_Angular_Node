@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Ensenanza } from 'src/app/models/ensenanza';
 import { EnseñanzaService } from 'src/app/services/enseñanza/enseñanza.service';
+import { SearchService } from 'src/app/services/search/search.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-categories',
@@ -9,10 +11,31 @@ import { EnseñanzaService } from 'src/app/services/enseñanza/enseñanza.servic
 })
 export class categoriesComponent implements OnInit {
   listEnsenyanza!: Ensenanza[];
-  constructor(private _enseñanzaService: EnseñanzaService) { }
+  dataSearch!:string;
+  constructor(
+    private _enseñanzaService: EnseñanzaService,
+    private searchService: SearchService,
+    private router:Router) { }
 
   ngOnInit(): void {
-    this.obtenerCurso();
+    this.searchService.searchEmitter.subscribe(data=>{
+      this.dataSearch = data;
+      this.changeOption();
+    });
+    this.changeOption();
+  }
+  changeOption(){
+    if(this.dataSearch){
+      let myUrl = '';
+      myUrl = '';
+      localStorage.setItem('BeforeUrl',myUrl);
+      this.searchSubject();
+    }else{
+      this.obtenerCurso();
+    }
+  }
+  searchSubject(){
+    this.router.navigate(['search']);
   }
   obtenerCurso() {
     this._enseñanzaService.findAllEnsenanza().subscribe(data => {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CoursesService } from 'src/app/services/courses/courses.service';
 import { Courses } from 'src/app/models/courses';
+import { SearchService } from 'src/app/services/search/search.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-all-courses',
   templateUrl: './all-courses.component.html',
@@ -8,12 +10,34 @@ import { Courses } from 'src/app/models/courses';
 })
 export class AllCoursesComponent implements OnInit {
   listAllCourses!: Courses[];
-  constructor(private _CoursesService: CoursesService) { }
+  dataSearch!:string;
+  constructor(
+    private _CoursesService: CoursesService,
+    private searchService: SearchService,
+    private router:Router
+    ) { }
 
   ngOnInit(): void {
-    this.obtenerTodosCursos();
+    this.searchService.searchEmitter.subscribe(data=>{
+      this.dataSearch = data;
+      this.changeOption();
+    });
+    this.changeOption();
   }
-
+  changeOption(){
+    if(this.dataSearch){
+      let tituEnsen: string | null = localStorage.getItem('ensenanza');
+      let myUrl = '';
+      myUrl = 'courses';
+      localStorage.setItem('BeforeUrl',myUrl);
+      this.searchSubject();
+    }else{
+      this.obtenerTodosCursos();
+    }
+  }
+  searchSubject(){
+    this.router.navigate(['search']);
+  }
   obtenerTodosCursos(){
     this._CoursesService.findAllCourses().subscribe(data => {
       console.log(data);

@@ -34,27 +34,46 @@ exports.findOneCourses = async(req,res)=>{
 }
 
 exports.findAsigCourses = async(req,res)=>{
+
     try{
         const Courses =  await courses.find({ensenanza:req.params.ensenanza});
         if(!Courses){
             console.log('No se encontro el curso de esa enseñanza');
         }
         res.json(Courses);
+
     }catch(e){
         console.log(e);
     }
 }
 exports.findSubjects = async(req,res)=>{
     try{
-        const Courses = await courses.find({ensenanza:req.params.ensenanza,curso:req.params.curso});
-        if(!Courses){
-            console.log('No se encontro el curso de esa enseñanza');
-        }
-        res.json(Courses);
+            // console.log('No se encontro la busqueda');
+            const Courses = await courses.find({ensenanza:req.params.ensenanza,curso:req.params.curso});
+        
+            if(!Courses){
+                console.log('No se encontro el curso de esa enseñanza');
+            }
+            res.json(Courses);
+
     }catch(e){
         console.log(e);
     }
 }
+
+// exports.findSearchSubjects = async(req,res)=>{
+//     try{
+//         const Courses = await courses.find({asignaturas:'/.*'+req.params.search+'.*/'});
+//         console.log(Courses);
+//         if(!Courses){
+//             console.log('No se encontro libros');
+//         }
+//         res.json(Courses);
+//     }catch(e){
+//         console.log(e);
+//     }
+// }
+
 exports.updateCourses = async(req,res)=>{
     try{
         const {curso,ensenanza,año,img,asignaturas} = req.body;

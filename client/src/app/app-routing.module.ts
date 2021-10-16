@@ -5,6 +5,7 @@ import { CoursesComponent } from './pages/courses/courses.component';
 import { SubjectsComponent } from './pages/subjects/subjects.component';
 import { BooksComponent } from './pages/books/books.component';
 import { DetailsComponent } from './pages/details/details.component';
+import { SearchComponentPage } from './pages/search/search.component';
 const routes: Routes = [
   {path:'',component:HomeComponent},
   // {path:'courses/:titulo',component:CoursesComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
     path: 'books',
     loadChildren: () => import('./components/cat-books/books.module').then(m => m.BooksModule)
   },
-  {path:'details/:slug', component:DetailsComponent}
+  {path:'details/:slug', component:DetailsComponent},
+  {path:'search',component:SearchComponentPage}
 ];
 
 @NgModule({

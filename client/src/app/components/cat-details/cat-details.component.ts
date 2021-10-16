@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Params } from '@angular/router';
 import { BooksService } from 'src/app/services/books/books.service';
 import { Books } from 'src/app/models/books';
+import { SearchService } from 'src/app/services/search/search.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-cat-details',
   templateUrl: './cat-details.component.html',
@@ -10,17 +12,38 @@ import { Books } from 'src/app/models/books';
 export class CatDetailsComponent implements OnInit {
 
   listDetails!: Books[];
-  constructor(private route : ActivatedRoute, private _BooksService : BooksService) { }
+  dataSearch!:string;
+  constructor(
+    private route : ActivatedRoute, 
+    private _BooksService : BooksService,
+    private searchService: SearchService,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params:Params)=>{
       console.log(params.slug);
       localStorage.setItem('slug',params.slug);
     });
-
-    this.obtenerDetails();
+    this.searchService.searchEmitter.subscribe(data=>{
+      this.dataSearch = data;
+      this.changeOption();
+    });
+    this.changeOption();
   }
-
+  changeOption(){
+    if(this.dataSearch){
+      let slug : string | null = localStorage.getItem('slug');
+      let myUrl = '';
+      myUrl = 'details/'+slug;
+      localStorage.setItem('BeforeUrl',myUrl);
+      this.searchSubject();
+    }else{
+      this.obtenerDetails();
+    }
+  }
+  searchSubject(){
+    this.router.navigate(['search']);
+  }
   obtenerDetails(){
     let slug : string | null = localStorage.getItem('slug');
     if(slug){

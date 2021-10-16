@@ -1,6 +1,5 @@
 <div class="wrapper-cat">
     <h3>Somos Recycled Books</h3>
-
     <div class="img-area">
         <div class="single-img"  *ngFor="let datos of listAllCourses">
             <img src="{{datos.img}}" alt="" [routerLink]="['/subjects', datos.ensenanza , datos.curso]">

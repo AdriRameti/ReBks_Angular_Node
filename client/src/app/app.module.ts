@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,8 @@ import { DetailsComponent } from './pages/details/details.component';
 import { CatDetailsComponent } from './components/cat-details/cat-details.component';
 import { AllBooksComponent } from './components/cat-books/all-books.component';
 import { AllCoursesComponent } from './components/cat-courses/all-courses.component';
+import { FilterCoursesComponent } from './components/filter-courses/filter-courses.component';
+import { SearchComponentPage } from './pages/search/search.component';
 
 
 @NgModule({
@@ -35,13 +38,17 @@ import { AllCoursesComponent } from './components/cat-courses/all-courses.compon
     // CatBooksComponent,
     DetailsComponent,
     CatDetailsComponent,
+    FilterCoursesComponent,
     // AllCoursesComponent,
     // AllBooksComponent
+    SearchComponentPage
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

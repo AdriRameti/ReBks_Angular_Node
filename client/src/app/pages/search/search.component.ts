@@ -9,13 +9,30 @@ import { Books } from 'src/app/models/books';
 
 export class SearchComponentPage implements OnInit {
    listSearchBooks!:Books[];
+   listFiltersBooks!:Books[];
+   listBooks!:Books[];
   constructor(private searchService:SearchService) { }
 
   ngOnInit(): void {
+    this.searchService.sendFilters.subscribe(datos=>{
+      console.log('Hola filtros',datos);
+      this.listFiltersBooks = datos;
+      this.option();
+    })
     this.searchService.sendSearch.subscribe(data=>{
       console.log(data);
       this.listSearchBooks = data;
+      this.option();
     })
+
+    this.option();
   }
 
+  option(){
+    if(this.listSearchBooks){
+      this.listBooks = this.listSearchBooks;
+    }else{
+      this.listBooks = this.listFiltersBooks
+    }
+  }
 }

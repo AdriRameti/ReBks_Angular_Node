@@ -41,10 +41,10 @@ export class SearchComponent implements OnInit {
     this._booksService.findSearch(this.searchValue,0).subscribe(data =>{
       console.log(data);
       this.searchService.sendSearch.emit(data);
-      // this.listSearch=data;
     });
     }else{
       this.router.navigate([returnUrl]);
     }
   }
+  
 }

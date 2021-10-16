@@ -20,7 +20,7 @@ export class BooksService {
   findAllBooks():Observable <any>{
     return this.http.get(environment.url+'/books');
   }
-  findSearch(search:string,tipo:number):Observable<any>{
+  findSearch(search:string,tipo:Number):Observable<any>{
     return this.http.get(environment.url+'/books/'+search+'/'+tipo);
   }
 

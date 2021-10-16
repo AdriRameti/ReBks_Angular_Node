@@ -45,11 +45,28 @@ exports.findThisBook = async (req,res) => {
 }
 exports.findSearchBook = async (req,res) =>{
     try{
-        const Book = await book.find({asignatura:{$regex:'.*'+req.params.search+'.*'}});
-        if(!Book){
-            console.log('No se encntro el libro de la busqueda');
+        if(req.params.tipo == 0){
+            const Book = await book.find({asignatura:{$regex:'.*'+req.params.search+'.*'}});
+            if(!Book){
+                console.log('No se encntro el libro de la busqueda');
+            }
+            res.json(Book);
+        }else if(req.params.tipo != 0){
+            if(req.params.tipo == -1){
+                const Libro = await book.find({ensenanza:req.params.search});
+                if(!Libro){
+                    console.log('No se encontro el libro de esa Enseñanza');
+                }
+                res.json(Libro);
+            }else{
+                const Libro = await book.find({ensenanza:req.params.search,curso:req.params.tipo});
+                if(!Libro){
+                    console.log("No se encontro el libro de esa enseñanza y curso");
+                }
+                res.json(Libro);
+            }
         }
-        res.json(Book);
+
     }catch(e){
 
     }

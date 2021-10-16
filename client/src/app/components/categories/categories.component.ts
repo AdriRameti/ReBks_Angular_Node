@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class categoriesComponent implements OnInit {
   listEnsenyanza!: Ensenanza[];
   dataSearch!:string;
+  dataFilter!:any;
   constructor(
     private _enseñanzaService: EnseñanzaService,
     private searchService: SearchService,
@@ -22,6 +23,11 @@ export class categoriesComponent implements OnInit {
       this.dataSearch = data;
       this.changeOption();
     });
+    this.searchService.sendFiltersEmitter.subscribe(data=>{
+      this.dataFilter = data;
+      this.searchService.sendFilters.emit(this.dataFilter);
+      this.changeOption();
+    });
     this.changeOption();
   }
   changeOption(){
@@ -29,6 +35,8 @@ export class categoriesComponent implements OnInit {
       let myUrl = '';
       myUrl = '';
       localStorage.setItem('BeforeUrl',myUrl);
+      this.searchSubject();
+    }else if(this.dataFilter){
       this.searchSubject();
     }else{
       this.obtenerCurso();

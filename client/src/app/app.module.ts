@@ -21,6 +21,7 @@ import { AllBooksComponent } from './components/cat-books/all-books.component';
 import { AllCoursesComponent } from './components/cat-courses/all-courses.component';
 import { FilterCoursesComponent } from './components/filter-courses/filter-courses.component';
 import { SearchComponentPage } from './pages/search/search.component';
+// import { PaginationComponent } from './pagination/pagination.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { SearchComponentPage } from './pages/search/search.component';
     FilterCoursesComponent,
     // AllCoursesComponent,
     // AllBooksComponent
-    SearchComponentPage
+    SearchComponentPage,
+    // PaginationComponent
   ],
   imports: [
     BrowserModule,

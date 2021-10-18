@@ -3,7 +3,7 @@ const router = express.Router();
 const booksController = require('../controllers/booksController');
 
 router.post('/', booksController.createBook);
-router.get('/', booksController.findallBooks);
+router.get('/pag', booksController.findallBooks);
 router.get('/:asignatura/:curso/:ensenanza', booksController.findThisBook)
 router.get('/:slug',booksController.findDetailsBook);
 router.get('/:search/:tipo',booksController.findSearchBook);

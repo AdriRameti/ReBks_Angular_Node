@@ -4,6 +4,7 @@ import { BooksService } from 'src/app/services/books/books.service';
 import { Books } from 'src/app/models/books';
 import { SearchService } from 'src/app/services/search/search.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-cat-books',
   templateUrl: './cat-books.component.html',
@@ -52,9 +53,16 @@ export class CatBooksComponent implements OnInit {
     let tituEnsen: string | null = localStorage.getItem('ensenanza');
     if(asignaturas && curso && tituEnsen){
       this._BooksService.findBooks(asignaturas,curso,tituEnsen).subscribe(data =>{
-
-        this.listBooks = data;
-        console.log(this.listBooks);
+        this._BooksService.paginationEmitter.emit(data);
+        let limitBooks : number =  parseInt(localStorage.getItem('limit') || "0");
+        let skip : number = parseInt(localStorage.getItem('skip') || '0');
+        if(asignaturas && curso && tituEnsen&&limitBooks){
+          this._BooksService.findBooksPag(asignaturas,curso,tituEnsen,limitBooks,skip).subscribe(data =>{
+            this.listBooks = data;
+          })
+        }else{
+          this.listBooks = data;
+        }
       },error=>{
         console.log(error);
       })

@@ -1,0 +1,10 @@
+<div class="container">
+
+    <div class="pagination">
+      <ul class="pagination-2">
+        <li class="page-number prev"><a href="#">&laquo;</a></li>
+        <li class="page-number"  *ngFor="let datos of numberPages" ><a (click)="page(datos)">{{datos}}</a></li>
+        <li class="page-number prev"><a href="#">&raquo;</a></li>
+      </ul>
+    </div>
+  </div>

@@ -37,7 +37,9 @@ export class AllBooksComponent implements OnInit {
     this.router.navigate(['search']);
   }
   obtenerTodosLibros(){
-    this._BooksService.findAllBooks().subscribe(data => {
+    let limitBooks : number =  parseInt(localStorage.getItem('limit') || "0");
+    let skip : number = parseInt(localStorage.getItem('skip') || '0');
+    this._BooksService.findAllBooks(limitBooks,skip).subscribe(data => {
       console.log(data);
       this.listAllBooks = data;
     });

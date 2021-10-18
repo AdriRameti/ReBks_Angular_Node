@@ -1,0 +1,37 @@
+/* General */
+body {
+    font-family: Arial Helvetica sans-serif;
+    font-size: 18px;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .pagination ul {
+    margin: 2em auto;
+    padding-left: 0;
+    list-style-type: none;
+  }
+  
+  .page-number {
+    display: inline;
+  }
+  
+  .page-number a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .pagination-2 .page-number {
+    padding: 8px 16px;
+    background-color: #f3f4f2;
+  }
+  
+  .pagination-2 .page-number:hover {
+    background-color: #87E3A1;
+    cursor: pointer;
+  }
+  

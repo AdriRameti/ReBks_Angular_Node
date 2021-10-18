@@ -12,8 +12,10 @@ exports.createBook = async(req,res) => {
 }
 
 exports.findallBooks = async(req,res) =>{
+    var limit = parseInt(req.query.limit);
+    var skip = parseInt(req.query.skip);
     try{
-        const books = await book.find();
+        const books = await book.find().limit(limit).skip(skip);
         res.json(books)
     }catch(e){
         console.log(e);
@@ -33,8 +35,14 @@ exports.findOneBook = async(req,res) => {
     }
 }
 exports.findThisBook = async (req,res) => {
+    var limit = parseInt(req.query.limit);
+    var skip = parseInt(req.query.skip);
     try{
-        const Book = await book.find({asignatura:req.params.asignatura,curso:req.params.curso,ensenanza:req.params.ensenanza})
+        const Book = await book.find(
+            {asignatura:req.params.asignatura,
+            curso:req.params.curso,
+            ensenanza:req.params.ensenanza}
+            ).limit(limit).skip(skip);
         if(!Book){
             console.log('No se encotro este libro');
         }

@@ -24,7 +24,6 @@ export class CatSubjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params:Params)=>{
-      console.log(params.ensenanza,params.curso);
       localStorage.setItem('ensenanza',params.ensenanza);
       localStorage.setItem('curso',params.curso);
     });
@@ -62,7 +61,6 @@ export class CatSubjectsComponent implements OnInit {
         subjects.sort(function(a:any, b:any) {
           return a.length - b.length;
         })
-        console.log(subjects);
         this.listSubjects = subjects;
       },error =>{
         console.log(error);

@@ -21,7 +21,6 @@ export class CatDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params:Params)=>{
-      console.log(params.slug);
       localStorage.setItem('slug',params.slug);
     });
     this.searchService.searchEmitter.subscribe(data=>{
@@ -48,7 +47,7 @@ export class CatDetailsComponent implements OnInit {
     let slug : string | null = localStorage.getItem('slug');
     if(slug){
       this._BooksService.findDetailsBook(slug).subscribe(data=>{
-        console.log(data);
+
         this.listDetails = data;
       });
     }

@@ -40,7 +40,7 @@ export class AllBooksComponent implements OnInit {
     let limitBooks : number =  parseInt(localStorage.getItem('limit') || "0");
     let skip : number = parseInt(localStorage.getItem('skip') || '0');
     this._BooksService.findAllBooks(limitBooks,skip).subscribe(data => {
-      console.log(data);
+      this._BooksService.paginationEmitter.emit(data);
       this.listAllBooks = data;
     });
   }

@@ -15,12 +15,10 @@ export class SearchComponentPage implements OnInit {
 
   ngOnInit(): void {
     this.searchService.sendFilters.subscribe(datos=>{
-      console.log('Hola filtros',datos);
       this.listFiltersBooks = datos;
       this.option();
     })
     this.searchService.sendSearch.subscribe(data=>{
-      console.log(data);
       this.listSearchBooks = data;
       this.option();
     })

@@ -7,6 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   handleSearch(value:string){
-    console.log(value);
   }
 }

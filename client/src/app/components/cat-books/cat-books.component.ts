@@ -22,7 +22,6 @@ export class CatBooksComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params:Params)=>{
-      console.log(params.asignaturas);
       localStorage.setItem('asignatura',params.asignaturas);
     })
 
@@ -57,7 +56,7 @@ export class CatBooksComponent implements OnInit {
         let limitBooks : number =  parseInt(localStorage.getItem('limit') || "0");
         let skip : number = parseInt(localStorage.getItem('skip') || '0');
         if(asignaturas && curso && tituEnsen&&limitBooks){
-          this._BooksService.findBooksPag(asignaturas,curso,tituEnsen,limitBooks,skip).subscribe(data =>{
+          this._BooksService.findBooksPag(asignaturas,curso,tituEnsen,limitBooks,1).subscribe(data =>{
             this.listBooks = data;
           })
         }else{

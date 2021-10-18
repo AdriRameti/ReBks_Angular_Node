@@ -48,7 +48,6 @@ export class categoriesComponent implements OnInit {
   obtenerCurso() {
     this._enseñanzaService.findAllEnsenanza().subscribe(data => {
       this.listEnsenyanza = data;
-      console.log(this.listEnsenyanza);
     }, error => {
       console.log(error);
     })

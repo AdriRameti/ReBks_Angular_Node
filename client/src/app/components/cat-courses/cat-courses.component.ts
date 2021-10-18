@@ -20,7 +20,6 @@ export class CatCoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      console.log(params.titulo);
       localStorage.setItem('ensenanza', params.titulo);
     });
     this.searchService.searchEmitter.subscribe(data=>{
@@ -48,7 +47,7 @@ export class CatCoursesComponent implements OnInit {
     if (tituEnsen) {
       this._coursesSercice.findEnsCourses(tituEnsen).subscribe(data => {
         this.listCourses = data;
-        console.log(this.listCourses);
+
       }, error => {
         console.log(error);
       })

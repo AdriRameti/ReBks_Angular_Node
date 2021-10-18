@@ -36,7 +36,6 @@ export class FilterCoursesComponent implements OnInit {
         break;
     }
 
-    console.log(this.filtroSeleccionado,this.filtroCurso);
   }
 
   sendFilters(){

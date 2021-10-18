@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { CoursesComponent } from './pages/courses/courses.component';
 import { SubjectsComponent } from './pages/subjects/subjects.component';
-import { BooksComponent } from './pages/books/books.component';
 import { DetailsComponent } from './pages/details/details.component';
 import { SearchComponentPage } from './pages/search/search.component';
+import { LoginComponent } from './pages/login/login.component';
 const routes: Routes = [
   {path:'',component:HomeComponent},
-  // {path:'courses/:titulo',component:CoursesComponent},
   {
     path:'courses',
     loadChildren: () => import('./components/cat-courses/courses.module').then(m => m.CoursesModule)
@@ -19,7 +17,8 @@ const routes: Routes = [
     loadChildren: () => import('./components/cat-books/books.module').then(m => m.BooksModule)
   },
   {path:'details/:slug', component:DetailsComponent},
-  {path:'search',component:SearchComponentPage}
+  {path:'search',component:SearchComponentPage},
+  {path:'login',component:LoginComponent}
 ];
 
 @NgModule({

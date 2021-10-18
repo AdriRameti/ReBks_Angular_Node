@@ -39,7 +39,6 @@ export class SearchComponent implements OnInit {
     let returnUrl : String | null = localStorage.getItem('BeforeUrl');
     if(this.searchValue){
     this._booksService.findSearch(this.searchValue,0).subscribe(data =>{
-      console.log(data);
       this.searchService.sendSearch.emit(data);
     });
     }else{

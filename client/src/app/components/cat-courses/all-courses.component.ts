@@ -40,7 +40,6 @@ export class AllCoursesComponent implements OnInit {
   }
   obtenerTodosCursos(){
     this._CoursesService.findAllCourses().subscribe(data => {
-      console.log(data);
       this.listAllCourses = data;
     });
   }

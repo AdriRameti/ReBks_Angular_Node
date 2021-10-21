@@ -1,0 +1,40 @@
+<br>
+<div class="container">
+    <form action="" [formGroup]="registerForm" (ngSubmit)="continue()" #f="ngForm">
+      
+      <div class="title">Register</div>
+
+      <div class="input-box">
+        <input type="text" formControlName="completeName" placeholder="Enter your Name and Surname" NgModel required>
+        <span id="nameError"></span>
+      <div class="underline"></div>
+      </div>
+
+      <div class="input-box">
+        <input type="text" formControlName="email" placeholder="Enter your Email" NgModel required>
+        <span id="emailError"></span>
+      <div class="underline"></div>
+      </div>
+
+      <div class="input-box">
+        <input type="password" formControlName="password" placeholder="Enter your Password" NgModel required>
+        <span id="passwordError"></span>
+      <div class="underline"></div>
+      </div>
+      
+      <div class="input-box">
+        <input type="password" formControlName="repeatPass" placeholder="Repeat your Password" NgModel required>
+        <span id="repeatPassError"></span>
+      <div class="underline"></div>
+      </div>
+
+      <div class="input-box button">
+        <input id="continueForm" type="submit" value="Continue" [disabled]="f.invalid">
+      </div>
+      
+    </form>
+    <div class="option">Ya tienes cuenta?</div>
+    <div class="twitter">
+      <a (click)="redirect()"><i class="fas fa-users"></i>Sign In</a>
+    </div>
+  </div>

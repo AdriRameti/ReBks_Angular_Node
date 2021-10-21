@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { categoriesComponent } from './components/categories/categories.component';
@@ -18,6 +17,9 @@ import { CatDetailsComponent } from './components/cat-details/cat-details.compon
 import { FilterCoursesComponent } from './components/filter-courses/filter-courses.component';
 import { SearchComponentPage } from './pages/search/search.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { RegisterCatComponent } from './components/register-cat/register-cat.component';
+import { LoginCatComponent } from './components/login-cat/login-cat.component';
 
 
 @NgModule({
@@ -36,6 +38,9 @@ import { LoginComponent } from './pages/login/login.component';
     FilterCoursesComponent,
     SearchComponentPage,
     LoginComponent,
+    RegisterComponent,
+    RegisterCatComponent,
+    LoginCatComponent,
 
   ],
   imports: [

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search/search.service';
-import { Books } from 'src/app/models/books';
 import { Router } from '@angular/router';
 import { BooksService } from 'src/app/services/books/books.service';
 @Component({

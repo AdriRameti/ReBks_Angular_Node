@@ -1,0 +1,27 @@
+<br>
+<div class="container">
+    <form action="" [formGroup]="loginForm" (ngSubmit)="continue()" #f="ngForm">
+      
+      <div class="title">Login</div>
+      <div class="input-box">
+        <input type="text" formControlName="email" placeholder="Enter your Email" NgModel required>
+        <span id="emailError"></span>
+      <div class="underline"></div>
+      </div>
+      
+      <div class="input-box">
+        <input type="password" formControlName="password" placeholder="Enter your Password" NgModel required>
+        <span id="passwordError"></span>
+      <div class="underline"></div>
+      </div>
+      
+      <div class="input-box button">
+        <input id="continueForm" type="submit" value="Continue" [disabled]="f.invalid">
+      </div>
+      
+    </form>
+    <div class="option">No tienes cuenta?</div>
+    <div class="twitter">
+      <a (click)="redirect()"><i class="fas fa-users"></i>Sign Up</a>
+    </div>
+  </div>

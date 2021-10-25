@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, ValidationErrors ,Validator, Validators } from '@angular/forms';
-
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-login-cat',
   templateUrl: './login-cat.component.html',
@@ -9,7 +9,8 @@ import { FormGroup, FormControl, ValidationErrors ,Validator, Validators } from 
 })
 export class LoginCatComponent implements OnInit {
   validaButton!:boolean;
-  constructor(private router:Router) { }
+  authType: String = '';
+  constructor(private router:Router,private userService: UserService) { }
   loginForm = new FormGroup({
     password: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -22,9 +23,14 @@ export class LoginCatComponent implements OnInit {
   }
 
   continue(){
-    const email = this.loginForm.controls['email'].value;
-    const password = this.loginForm.controls['password'].value;
-    console.log(email,password);
+    const credentials = this.loginForm.value;
+    this.authType='login';
+    this.userService.attemptAuth(this.authType,credentials).subscribe(data=>{
+      this.router.navigateByUrl('/')
+      // if(data === 0){
+
+      // }
+    })
 
   }
 

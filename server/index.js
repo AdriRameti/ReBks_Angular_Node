@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const routesBooks = require('./routes/routes.books');
 const routesCourses = require('./routes/routes.courses');
 const routesEnsenanza = require('./routes/routes.ensenanza');
-const routesUsers = require('./routes/routes.users');
+const routesUsers = require('./routes/routes.user');
 const app = express();
 
 conectarDB();
@@ -23,7 +23,7 @@ app.use(bodyParser.json())
 app.use('/api/books',routesBooks);
 app.use('/api/courses',routesCourses);
 app.use('/api/ensenanza',routesEnsenanza);
-app.use('/api/users',routesUsers);
+app.use('/api/user',routesUsers);
 
 app.listen( port, '0.0.0.0', () => { 
     console.log(`El servidor está corriendo perfectamente en el puerto ${port}`)

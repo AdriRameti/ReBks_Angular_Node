@@ -1,6 +1,6 @@
 <body>
     <main>
-        <div class="content-all">
+        <div class="content-all" *appShowUser="false">
             <h1>ReBks</h1>
             <div class="barra">
                 <i class="fas fa-bars"></i>
@@ -14,5 +14,20 @@
                 </ul>
             </div>
         </div>
+        <div class="content-all" *appShowUser="true">
+            <h1>ReBks</h1>
+            <div class="barra">
+                <i class="fas fa-bars"></i>
+                <h2>Menu</h2>
+                <ul>
+                    <li><a>¿Quienes somos?</a></li>
+                    <li [routerLink]="['']"><a>Enseñanza</a></li>
+                    <li [routerLink]="['courses']"><a>Cursos</a></li>
+                    <li [routerLink]="['books']"><a>Libros</a></li>
+                    <li><a><i class="fas fa-user"></i>{{currentUser.userName}}</a></li>
+                </ul>
+            </div>
+        </div>
     </main>
+    
 </body>

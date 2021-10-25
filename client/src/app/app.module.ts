@@ -20,6 +20,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { RegisterCatComponent } from './components/register-cat/register-cat.component';
 import { LoginCatComponent } from './components/login-cat/login-cat.component';
+import { ShowUserDirective } from './directive/show-user.directive';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { LoginCatComponent } from './components/login-cat/login-cat.component';
     RegisterComponent,
     RegisterCatComponent,
     LoginCatComponent,
+    ShowUserDirective,
 
   ],
   imports: [

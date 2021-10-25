@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, ValidationErrors ,Validator, Validators } from '@angular/forms';
+import { FormGroup, FormControl, ValidationErrors , Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-register-cat',
   templateUrl: './register-cat.component.html',
@@ -8,9 +9,11 @@ import { FormGroup, FormControl, ValidationErrors ,Validator, Validators } from 
 })
 export class RegisterCatComponent implements OnInit {
   validaButton!:boolean;
-  constructor(private router:Router) { }
+  isSubmitting = false;
+  authType: String = '';
+  constructor(private router:Router,private userService: UserService) { }
   registerForm = new FormGroup({
-    completeName: new FormControl('', Validators.required),
+    userName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
     repeatPass: new FormControl('', Validators.required)
@@ -23,19 +26,24 @@ export class RegisterCatComponent implements OnInit {
   }
 
   continue(){
-    const completeName = this.registerForm.controls['completeName'].value;
+    const userName = this.registerForm.controls['userName'].value;
     const email = this.registerForm.controls['email'].value;
     const password = this.registerForm.controls['password'].value;
     const repeatPass = this.registerForm.controls['repeatPass'].value;
     const repeatPassError = (document.getElementById('repeatPassError')as HTMLElement);
     const passwordError = (document.getElementById('passwordError')as HTMLElement);
-    console.log(completeName,email,password,repeatPass);
 
     if(password != repeatPass){
       repeatPassError.innerHTML="<span style='color:red'>*Las contraseñas no coinciden*<span>";
       passwordError.innerHTML="<span style='color:red'>*Las contraseñas no coinciden*<span>";
     }else{
-      console.log('Las contra son iguales');
+      this.isSubmitting = true;
+      this.authType='register';
+      const credentials = this.registerForm.value;
+      this.userService.attemptAuth(this.authType,credentials).subscribe(data=>{
+        console.log(data);
+      })
+
     }
 
   }
@@ -49,7 +57,7 @@ export class RegisterCatComponent implements OnInit {
     emailError.innerHTML="<span style='color:red'>*Debes utilizar la sintaxis name@servidor.com *<span>";
     passwordError.innerHTML="<span style='color:red'>*Este campo es obligatorio*<span>";
     repeatPassError.innerHTML="<span style='color:red'>*Este campo es obligatorio*<span>";
-    this.registerForm.controls['completeName'].valueChanges.subscribe(nameValue=>{
+    this.registerForm.controls['userName'].valueChanges.subscribe(nameValue=>{
       if(!nameValue){
         nameError.innerHTML="<span style='color:red'>*Este campo es obligatorio*<span>";
       }else{

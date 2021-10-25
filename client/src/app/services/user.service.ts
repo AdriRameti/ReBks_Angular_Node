@@ -1,0 +1,47 @@
+import { Injectable } from '@angular/core';
+import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
+import { map ,  distinctUntilChanged } from 'rxjs/operators';
+import { JwtService } from './jwt.service';
+import { User } from '../models/user';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { UsersService } from './user/users.service';
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+  private currentUserSubject = new BehaviorSubject<User>({} as User);
+  public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
+
+  private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
+  public isAuthenticated = this.isAuthenticatedSubject.asObservable();
+  constructor(private jwtService: JwtService, private usersService: UsersService) { }
+  setAuth(user: User) {
+    // Save JWT sent from server in localstorage
+    this.jwtService.saveToken(user.token);
+    // Set current user data into observable
+    this.currentUserSubject.next(user);
+    // Set isAuthenticated to true
+    this.isAuthenticatedSubject.next(true);
+  }
+  attemptAuth(type:any,credentials:Object): Observable<User> {
+    if(type==='register'){
+      return this.usersService.register({user:credentials})
+      .pipe(map(
+      data => {
+        this.setAuth(data.user);
+        return data;
+      }
+    ));  
+    }else{
+      return this.usersService.login({user:credentials})
+      .pipe(map(
+      data => {
+        this.setAuth(data.user);
+        return data;
+      }
+    )); 
+    }
+
+  }
+}

@@ -1,8 +1,8 @@
 <body>
     <main>
-        <div class="content-all" *appShowUser="false">
+        <div class="content-all" >
             <h1>ReBks</h1>
-            <div class="barra">
+            <div class="barra" >
                 <i class="fas fa-bars"></i>
                 <h2>Menu</h2>
                 <ul>
@@ -13,10 +13,8 @@
                     <li [routerLink]="['login']"><a><i class="fas fa-user"></i>Iniciar Sesion</a></li>
                 </ul>
             </div>
-        </div>
-        <div class="content-all" *appShowUser="true">
-            <h1>ReBks</h1>
-            <div class="barra">
+
+            <div class="barra" *appShowUser="true">
                 <i class="fas fa-bars"></i>
                 <h2>Menu</h2>
                 <ul>
@@ -24,7 +22,9 @@
                     <li [routerLink]="['']"><a>Enseñanza</a></li>
                     <li [routerLink]="['courses']"><a>Cursos</a></li>
                     <li [routerLink]="['books']"><a>Libros</a></li>
-                    <li><a><i class="fas fa-user"></i>{{currentUser.userName}}</a></li>
+                    <li><a><img src="https://static.productionready.io/images/smiley-cyrus.jpg" class="img-user">
+                        {{currentUser.userName}}</a></li>
+                    <li><a (click)="logOut()"><i class="fas fa-sign-out-alt"></i>Log Out</a></li>
                 </ul>
             </div>
         </div>

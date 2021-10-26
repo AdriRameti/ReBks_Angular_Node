@@ -9,7 +9,7 @@ import { UserService } from '../services/user.service';
 @Directive({
   selector: '[appShowUser]'
 })
-export class ShowUserDirective {
+export class ShowUserDirective implements OnInit{
   condition!: boolean;
   constructor(
     private templateRef: TemplateRef<any>,
@@ -19,6 +19,7 @@ export class ShowUserDirective {
   ngOnInit() {
     this.userService.isAuthenticated.subscribe(
       (isAuthenticated) => {
+        console.log(isAuthenticated,this.condition);
         if (isAuthenticated && this.condition || !isAuthenticated && !this.condition) {
           this.viewContainer.createEmbeddedView(this.templateRef);
         } else {
@@ -28,7 +29,7 @@ export class ShowUserDirective {
     );
   }
 
-  @Input() set appShowAuthed(condition: boolean) {
+  @Input() set appShowUser(condition: boolean) {
     this.condition = condition;
   }
 }

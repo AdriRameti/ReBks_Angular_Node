@@ -1,5 +1,19 @@
 var mongoose = require('mongoose');
 var User = require('../models/models.infoUser')
+var auth = require('../controllers/auth');
+
+exports.readUser = async(req,res)=>{
+try{
+    User.findById(req.payload.id).then(function(user){
+        if(!user){
+            return res.status(401);
+        }
+        return res.json({user: user.toAuthJSON()});
+    })
+}catch(e){
+    console.log(e);
+}
+}
 
 exports.createUser = async (req,res) => {
     try{
@@ -11,6 +25,33 @@ exports.createUser = async (req,res) => {
         user.save().then(function(){
             return res.json({user: user.toAuthJSON()})
         });
+    }catch(e){
+        console.log(e);
+    }
+}
+
+exports.updateUser = async (req,res)=>{
+    try{
+        User.findById(req.payload.id).then(function(user){
+            if(!user){ return res.sendStatus(401); }
+            
+            if(typeof req.body.user.userName !== 'undefined'){
+              user.userName = req.body.user.userName;
+            }
+            if(typeof req.body.user.email !== 'undefined'){
+              user.email = req.body.user.email;
+            }
+            if(typeof req.body.user.image !== 'undefined'){
+              user.image = req.body.user.image;
+            }
+            if(typeof req.body.user.password !== 'undefined'){
+              user.setPassword(req.body.user.password);
+            }
+        
+            return user.save().then(function(){
+              return res.json({user: user.toAuthJSON()});
+            });
+          });
     }catch(e){
         console.log(e);
     }

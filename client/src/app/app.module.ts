@@ -21,7 +21,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { RegisterCatComponent } from './components/register-cat/register-cat.component';
 import { LoginCatComponent } from './components/login-cat/login-cat.component';
 import { ShowUserDirective } from './directive/show-user.directive';
-
+import { HttpTokenInterceptor } from './interceptors';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,9 @@ import { ShowUserDirective } from './directive/show-user.directive';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

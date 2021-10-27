@@ -13,7 +13,7 @@ var auth = {
       secret: secret,
       userProperty: 'payload',
       getToken: getTokenFromHeader,
-      algorithms: ['RS256']
+      algorithms: ['HS256']
     }),
   };
   

@@ -31,24 +31,22 @@ exports.createUser = async (req,res) => {
 }
 
 exports.updateUser = async (req,res)=>{
-    console.log('hola update');
     try{
         User.findById(req.payload.id).then(function(user){
-            console.log(user);
             if(!user){ 
-                return res.sendStatus(401); }
-            
-            if(typeof req.body.user.userName !== 'undefined'){
-              user.userName = req.body.user.userName;
+                return res.sendStatus(401); 
             }
-            if(typeof req.body.user.email !== 'undefined'){
-              user.email = req.body.user.email;
+            if(typeof req.body.userName !== 'undefined'){
+              user.userName = req.body.userName;
             }
-            if(typeof req.body.user.image !== 'undefined'){
-              user.image = req.body.user.image;
+            if(typeof req.body.email !== 'undefined'){
+              user.email = req.body.email;
             }
-            if(typeof req.body.user.password !== 'undefined'){
-              user.setPassword(req.body.user.password);
+            if(typeof req.body.image !== 'undefined'){
+              user.image = req.body.image;
+            }
+            if(typeof req.body.password !== 'undefined'){
+              user.setPassword(req.body.password);
             }
         
             return user.save().then(function(){

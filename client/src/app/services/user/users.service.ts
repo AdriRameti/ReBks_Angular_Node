@@ -15,6 +15,6 @@ export class UsersService {
     return this.http.post(environment.url+'/user/login',body);
   }
   update(body:Object):Observable<any>{
-    return this.http.put(environment.url+'/user/',body);
+    return this.http.put(environment.url+'/user/update',body);
   }
 }

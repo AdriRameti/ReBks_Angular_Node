@@ -93,7 +93,9 @@ export class ProfileCatComponent implements OnInit {
       this.userService
       .update(this.user)
       .subscribe(
-        updatedUser => this.router.navigateByUrl('/profile/' + updatedUser.userName)
+        updatedUser =>{
+          this.router.navigateByUrl('/');
+        } 
       );
     }
 

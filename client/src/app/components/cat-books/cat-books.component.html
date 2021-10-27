@@ -3,13 +3,15 @@
 
     <div class="flex">
 
-      <div class="card" *ngFor="let datos of listBooks" [routerLink]="['/details',datos.slug]">
+      <div class="card" *ngFor="let datos of listBooks"  [routerLink]="['/details',datos.slug]">
         <img src="{{datos.img.portada}}" alt="">
         <div class="card-body">
           <h3>{{datos.titulo}}</h3>
           <p>{{datos.descripcion}}</p>
           <p>{{datos.editorial}}</p>
           <p>{{datos.precio}}</p>
+          <p><app-fav-button></app-fav-button>&nbsp;&nbsp;&nbsp;&nbsp;<app-follow-button></app-follow-button></p>
+          
         </div>
       </div>
 

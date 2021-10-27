@@ -14,4 +14,7 @@ export class UsersService {
   login(body:Object): Observable <any>{
     return this.http.post(environment.url+'/user/login',body);
   }
+  update(body:Object):Observable<any>{
+    return this.http.put(environment.url+'/user/',body);
+  }
 }

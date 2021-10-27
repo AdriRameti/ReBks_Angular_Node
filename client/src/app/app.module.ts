@@ -23,6 +23,10 @@ import { LoginCatComponent } from './components/login-cat/login-cat.component';
 import { ShowUserDirective } from './directive/show-user.directive';
 import { HttpTokenInterceptor } from './interceptors';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FavButtonComponent } from './components/favorite/fav-button/fav-button.component';
+import { FollowButtonComponent } from './components/follow/follow-button/follow-button.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ProfileCatComponent } from './components/profile-cat/profile-cat.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     RegisterCatComponent,
     LoginCatComponent,
     ShowUserDirective,
+    ProfileComponent,
+    // ProfileCatComponent,
+    // FollowButtonComponent,
+    // FavButtonComponent,
 
   ],
   imports: [

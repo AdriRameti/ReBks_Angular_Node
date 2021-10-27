@@ -31,9 +31,12 @@ exports.createUser = async (req,res) => {
 }
 
 exports.updateUser = async (req,res)=>{
+    console.log('hola update');
     try{
         User.findById(req.payload.id).then(function(user){
-            if(!user){ return res.sendStatus(401); }
+            console.log(user);
+            if(!user){ 
+                return res.sendStatus(401); }
             
             if(typeof req.body.user.userName !== 'undefined'){
               user.userName = req.body.user.userName;

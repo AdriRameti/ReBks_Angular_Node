@@ -14,7 +14,8 @@ export class HttpTokenInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const headersConfig = {
       'Content-Type':'application/json',
-      'Accept':'application/json'
+      'Accept':'application/json',
+      'Authorization':''
     }
     const token = this.jwtService.getToken();
     if(token){

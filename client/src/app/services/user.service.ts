@@ -43,6 +43,27 @@ export class UserService {
     )); 
     }
   }
+
+  getCurrentUser(): User {
+    return this.currentUserSubject.value;
+  }
+  // update(user): Observable<User> {
+  //   return this.usersService
+  //   .put('/user', { user })
+  //   .pipe(map(data => {
+  //     // Update the currentUser observable
+  //     this.currentUserSubject.next(data.user);
+  //     return data.user;
+  //   }));
+  // }
+  update(user:any): Observable<User> {
+    return this.usersService.update(user)
+    .pipe(map(data=>{
+      console.log(data);
+      this.currentUserSubject.next(data.user);
+      return data.user
+    }));
+  }
   logOutCleaner() {
     // Remove JWT from localstorage
     this.jwtService.destroyToken();

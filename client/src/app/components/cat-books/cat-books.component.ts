@@ -56,8 +56,9 @@ export class CatBooksComponent implements OnInit {
         let limitBooks : number =  parseInt(localStorage.getItem('limit') || "0");
         let skip : number = parseInt(localStorage.getItem('skip') || '0');
         if(asignaturas && curso && tituEnsen&&limitBooks){
-          this._BooksService.findBooksPag(asignaturas,curso,tituEnsen,limitBooks,1).subscribe(data =>{
+          this._BooksService.findBooksPag(asignaturas,curso,tituEnsen,limitBooks,skip).subscribe(data =>{
             this.listBooks = data;
+            console.log(data);
           })
         }else{
           this.listBooks = data;
@@ -69,4 +70,5 @@ export class CatBooksComponent implements OnInit {
       console.log('Error en las variables');
     }
   }
+
 }

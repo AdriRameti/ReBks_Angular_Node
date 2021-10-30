@@ -15,6 +15,7 @@ export class UserService {
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
+  
   constructor(private jwtService: JwtService, private usersService: UsersService) { }
   setAuth(user: User) {
     // Save JWT sent from server in localstorage

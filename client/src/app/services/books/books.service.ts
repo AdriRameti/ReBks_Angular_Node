@@ -26,4 +26,10 @@ export class BooksService {
   findBooksPag(asignaturas:string,curso:number,tituEnsen:string,limit:number,skip:number): Observable <any>{
     return this.http.get(environment.url+'/books/'+asignaturas+'/'+curso+'/'+tituEnsen+'?limit='+limit+'&skip='+skip);
   }
+  favorite():Observable<any>{
+    return this.http.get(environment.url+'/books');
+  }
+  unfavorite():Observable<any>{
+    return this.http.get(environment.url+'/books');
+  }
 }

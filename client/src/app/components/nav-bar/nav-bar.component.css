@@ -1,3 +1,6 @@
+.content-all{
+    z-index: 4;
+}
 .content-all h1{
     /* position: relative;
     left: 1150px; */
@@ -59,6 +62,7 @@
     width: 35%;
     height: 100%;
     background-color:#67C281;
+    z-index: 4 !important;
 }
 
 .barra:hover h2{

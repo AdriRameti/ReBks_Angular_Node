@@ -24,12 +24,10 @@ export class LoginCatComponent implements OnInit {
 
   continue(){
     const credentials = this.loginForm.value;
+    localStorage.setItem("credentials",credentials);
     this.authType='login';
     this.userService.attemptAuth(this.authType,credentials).subscribe(data=>{
       this.router.navigateByUrl('/')
-      // if(data === 0){
-
-      // }
     })
 
   }

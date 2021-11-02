@@ -17,6 +17,25 @@ export class UserService {
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
   
   constructor(private jwtService: JwtService, private usersService: UsersService) { }
+
+  populate(){
+    var credentials = localStorage.getItem("credentials") || "";
+    if(credentials == ""){
+      this.logOutCleaner();
+    }else{
+      var UserCredentials = JSON.parse(credentials);
+    }
+
+    if (this.jwtService.getToken()) {
+      this.usersService.login(UserCredentials)
+      .subscribe(
+        data => this.setAuth(data.user),
+        err => this.logOutCleaner()
+      );
+    } else {
+      this.logOutCleaner();
+    }
+  }
   setAuth(user: User) {
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.token);

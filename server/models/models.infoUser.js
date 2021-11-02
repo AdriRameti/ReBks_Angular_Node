@@ -6,13 +6,14 @@ var secret= require('../config').secret;
 const Comments = mongoose.Schema({
     bodyComment:{type:String},
     nameUser:{type:String},
-    idBook: { type: String}
+    idBook: {type: String}
 })
 const User = mongoose.Schema({
     userName:{type:String},
     email:{type:String, unique:true},
     password:{type:String},
     image:{type:String},
+    favorite:[{type:String}],
     follow:[{type:String}],
     comments:[Comments],
     hash:String,

@@ -25,16 +25,13 @@ export class FavButtonComponent{
   @Input() books!: Books;
   @Output() toggle = new EventEmitter<boolean>();
   favorite(){
-    console.log('hola');
+    console.log(this.books["slug"]);
     this.userService.isAuthenticated.pipe(concatMap(
       (authenticated)=>{
-      console.log('entra');
-      console.log(authenticated);
       if (!authenticated) {
         this.router.navigateByUrl('/login');
         return of(null);
-      }
-
+      }   
       //Si no esta favorito lo hacemos favorito
       if (!this.books) {
         return this.booksService.favorite()
@@ -54,7 +51,10 @@ export class FavButtonComponent{
           }
         ));
       }
-    }));
+    }
+    )).subscribe((data)=>{
+      this.cd.markForCheck();
+    });
     
   }
 }

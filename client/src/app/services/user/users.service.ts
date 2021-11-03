@@ -17,4 +17,7 @@ export class UsersService {
   update(body:Object):Observable<any>{
     return this.http.put(environment.url+'/user/update',body);
   }
+  showFav(slug:String):Observable<any>{
+    return this.http.get(environment.url+'/user/showFav/'+slug);
+  }
 }

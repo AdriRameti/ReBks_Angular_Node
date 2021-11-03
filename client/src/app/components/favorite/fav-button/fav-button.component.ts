@@ -4,6 +4,7 @@ import { concatMap ,  tap} from 'rxjs/operators';
 import { Books } from 'src/app/models/books';
 import { BooksService } from 'src/app/services/books/books.service';
 import { UserService } from 'src/app/services/user.service';
+import { UsersService } from 'src/app/services/user/users.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,7 +18,8 @@ export class FavButtonComponent{
     private booksService: BooksService,
     private router: Router,
     private userService: UserService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private usersService:UsersService
   ) { }
 
   ngOnInit(): void {
@@ -25,16 +27,13 @@ export class FavButtonComponent{
   @Input() books!: Books;
   @Output() toggle = new EventEmitter<boolean>();
   favorite(){
-    console.log('hola');
+    console.log(this.books['slug']);
     this.userService.isAuthenticated.pipe(concatMap(
       (authenticated)=>{
-      console.log('entra');
-      console.log(authenticated);
       if (!authenticated) {
         this.router.navigateByUrl('/login');
         return of(null);
-      }
-
+      }   
       //Si no esta favorito lo hacemos favorito
       if (!this.books) {
         return this.booksService.favorite()
@@ -54,7 +53,10 @@ export class FavButtonComponent{
           }
         ));
       }
-    }));
+    }
+    )).subscribe((data)=>{
+      this.cd.markForCheck();
+    });
     
   }
 }

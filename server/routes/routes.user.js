@@ -6,4 +6,5 @@ router.put('/update',auth.required,userControler.updateUser);
 router.get('/',auth.required,userControler.readUser);
 router.post('/register',userControler.createUser);
 router.post('/login',userControler.readLogin);
+router.get('/showFav/:slug',auth.required,userControler.showFav);
 module.exports = router;

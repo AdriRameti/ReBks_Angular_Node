@@ -3,8 +3,6 @@ import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
 import { map ,  distinctUntilChanged } from 'rxjs/operators';
 import { JwtService } from './jwt.service';
 import { User } from '../models/user';
-import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { UsersService } from './user/users.service';
 @Injectable({
   providedIn: 'root'
@@ -17,7 +15,36 @@ export class UserService {
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
   
   constructor(private jwtService: JwtService, private usersService: UsersService) { }
+
+  populate(){
+    var credentials = localStorage.getItem("credentials") || "";
+    var UserCredentials = null;
+    console.log(credentials);
+    if(credentials == ""){
+      this.logOutCleaner();
+    }else{
+      try {
+      UserCredentials = {user:JSON.parse(credentials)};
+      console.log(UserCredentials);
+      } catch(e) {
+        localStorage.removeItem('credentials');
+      }
+    }
+
+    if (this.jwtService.getToken() && UserCredentials) {
+      console.log('login')
+      this.usersService.login(UserCredentials)
+      .subscribe(
+        data => this.setAuth(data.user),
+        err => this.logOutCleaner()
+      );
+    } else {
+      this.logOutCleaner();
+    }
+  }
+  
   setAuth(user: User) {
+    console.log('setAuth', user);
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.token);
     // Set current user data into observable
@@ -64,6 +91,7 @@ export class UserService {
     this.currentUserSubject.next({} as User);
     // Set auth status to false
     this.isAuthenticatedSubject.next(false);
+    // localStorage.setItem('credentials','');
   }
 
 }

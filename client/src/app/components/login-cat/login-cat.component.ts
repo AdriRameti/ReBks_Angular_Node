@@ -24,6 +24,8 @@ export class LoginCatComponent implements OnInit {
 
   continue(){
     const credentials = this.loginForm.value;
+    var cred = JSON.stringify(credentials);
+    localStorage.setItem("credentials",cred);
     this.authType='login';
     this.userService.attemptAuth(this.authType,credentials).subscribe(data=>{
       this.router.navigateByUrl('/')

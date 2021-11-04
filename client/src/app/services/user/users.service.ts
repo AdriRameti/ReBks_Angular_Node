@@ -20,4 +20,7 @@ export class UsersService {
   showFav(slug:String):Observable<any>{
     return this.http.get(environment.url+'/user/showFav/'+slug);
   }
+  favorite(body:Object):Observable<any>{
+    return this.http.post(environment.url+'/user/favorite',body);
+  }
 }

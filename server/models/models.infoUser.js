@@ -14,6 +14,7 @@ const User = mongoose.Schema({
     password:{type:String},
     image:{type:String},
     follow:[{type:String}],
+    favorites:[{type:String}],
     comments:[Comments],
     hash:String,
     salt:String

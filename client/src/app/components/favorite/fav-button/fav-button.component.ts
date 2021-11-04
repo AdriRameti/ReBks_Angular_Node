@@ -25,36 +25,47 @@ export class FavButtonComponent{
   ngOnInit(): void {
   }
   @Input() books!: Books;
-  @Output() toggle = new EventEmitter<boolean>();
+  @Output() toggle = new EventEmitter<string>();
   favorite(){
-    console.log(this.books['slug']);
+    var credentials = localStorage.getItem('credentials') || "";
+    var myCredentials = null
+    if(credentials == ""){
+    }else{
+      try {
+      myCredentials = JSON.parse(credentials);
+      } catch(e) {
+      }
+    }
+    var email =myCredentials["email"]
+    var slug = this.books['slug'];
+    var MyObjejct = {user:{
+      slug:slug,
+      email:email
+    }}
+    console.log(MyObjejct);
     this.userService.isAuthenticated.pipe(concatMap(
       (authenticated)=>{
       if (!authenticated) {
         this.router.navigateByUrl('/login');
         return of(null);
-      }   
-      //Si no esta favorito lo hacemos favorito
-      if (!this.books) {
-        return this.booksService.favorite()
-        .pipe(tap(
-          data => {
-            this.toggle.emit(true);
-          }
-        ));
-
-      //Sino le haremos unfavorite
-      } else {
-        return this.booksService.unfavorite()
-        .pipe(tap(
-          data => {
-            console.log(data);
-            this.toggle.emit(false);
-          }
-        ));
       }
+      
+      return this.usersService.showFav(slug)
+      .pipe(tap(
+        data => {
+          
+        }
+      ));
     }
     )).subscribe((data)=>{
+      if(data.length===0){
+        this.usersService.favorite(MyObjejct).subscribe(data=>{
+          console.log(data);
+          if(data==0){
+            this.toggle.emit(slug);
+          }
+        });
+      }
       this.cd.markForCheck();
     });
     

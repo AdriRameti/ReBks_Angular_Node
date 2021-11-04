@@ -15,18 +15,40 @@ try{
 }
 }
 exports.showFav = async(req,res)=>{
-    console.log(req.params.slug);
-    // try{
-    //     User.findById(req.payload.id).then(function(user){
-    //         if(!user){
-    //             return res.status(401);
-    //         }
-    //         return res.json({user: user.toAuthJSON()});
-    //     })
-    // }catch(e){
-    //     console.log(e);
-    // }
+    var slug = req.params.slug;
+    try{
+        User.find({favorites:{$in:[slug]}}).then(function(fav){
+            if(!fav){
+                res.json(0);
+            }else{
+                res.json(fav);
+            }
+        })
+    }catch(e){
+        console.log(e);
     }
+    }
+
+exports.favorite = async (req,res)=>{
+    var email = req.body.user.email;
+    var slug = req.body.user.slug;
+    try{
+        User.find({favorites:{$in:[slug]},email:email}).then(function(fav){
+            if(fav.length==0){
+                User.findById(req.payload.id).then(function(user){
+                    user.favorites.push(slug);
+                    user.save().then(function(){
+                        return res.json(0);
+                    });
+                });
+            }else{
+                res.json(fav);
+            }
+        })
+    }catch(e){
+        console.log(e);
+    }
+}    
 exports.createUser = async (req,res) => {
     try{
         var user = new User();
@@ -71,7 +93,6 @@ exports.updateUser = async (req,res)=>{
 }
 
 exports.readLogin = async (req,res) => {
-   console.log(req.body);
     try{
         if(!req.body.user.email){
             return res.status(422).json({errors: {email: "can't be blank"}});
@@ -84,7 +105,6 @@ exports.readLogin = async (req,res) => {
             if(!user || !user.validPassword(req.body.user.password)){
                 return res.json(0)
             }else{
-                console.log(user);
                 user.token = user.generateJWT();
                 return res.json({user: user.toAuthJSON()});
             }

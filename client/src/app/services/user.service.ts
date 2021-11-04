@@ -19,20 +19,17 @@ export class UserService {
   populate(){
     var credentials = localStorage.getItem("credentials") || "";
     var UserCredentials = null;
-    console.log(credentials);
     if(credentials == ""){
       this.logOutCleaner();
     }else{
       try {
       UserCredentials = {user:JSON.parse(credentials)};
-      console.log(UserCredentials);
       } catch(e) {
         localStorage.removeItem('credentials');
       }
     }
 
     if (this.jwtService.getToken() && UserCredentials) {
-      console.log('login')
       this.usersService.login(UserCredentials)
       .subscribe(
         data => this.setAuth(data.user),
@@ -44,7 +41,6 @@ export class UserService {
   }
   
   setAuth(user: User) {
-    console.log('setAuth', user);
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.token);
     // Set current user data into observable

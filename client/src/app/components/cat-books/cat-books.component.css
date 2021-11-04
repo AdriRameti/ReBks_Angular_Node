@@ -71,7 +71,9 @@
   img:hover{
     cursor: pointer;
   }
-  
+  .red{
+    color: red;
+  }
   .card-body {
     height: 200px;
     padding: 1em 0;

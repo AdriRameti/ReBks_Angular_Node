@@ -30,8 +30,17 @@ export class CatBooksComponent implements OnInit {
       this.changeOption();
     });
     this.changeOption();
-  }
 
+  }
+  toggleButton(slug:string){
+    var btn_like = document.getElementById(slug) as HTMLElement;
+    if(slug=='0'){
+
+    }else{
+      btn_like.classList.add('red');
+    }
+    
+  }
   changeOption(){
     if(this.dataSearch){
       let asignaturas : string | null = localStorage.getItem('asignatura');

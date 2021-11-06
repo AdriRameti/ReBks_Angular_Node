@@ -10,7 +10,8 @@
           <p>{{datos.descripcion}}</p>
           <p>{{datos.editorial}}</p>
           <p>{{datos.precio}}</p>
-          <p><app-fav-button [books]="datos" (toggle)="toggleButton($event)" id="{{datos.slug}}"></app-fav-button>&nbsp;&nbsp;&nbsp;&nbsp;<app-follow-button></app-follow-button></p>
+          <p><app-fav-button [books]="datos" (toggle)="toggleButton($event)" id="{{datos.slug}}"></app-fav-button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<app-follow-button [books]="datos" (follow_btn)="followButton($event)" id="{{datos.slug}}FLLW"></app-follow-button></p>
           
         </div>
       </div>

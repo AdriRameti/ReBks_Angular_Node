@@ -14,6 +14,20 @@ try{
     console.log(e);
 }
 }
+exports.showFoll = async(req,res)=>{
+    var slug = req.params.slug;
+    try{
+        User.find({follow:{$in:[slug]}}).then(function(fav){
+            if(!fav){
+                res.json(0);
+            }else{
+                res.json(fav);
+            }
+        })
+    }catch(e){
+        console.log(e);
+    }
+}
 exports.showFav = async(req,res)=>{
     var slug = req.params.slug;
     try{
@@ -27,8 +41,36 @@ exports.showFav = async(req,res)=>{
     }catch(e){
         console.log(e);
     }
+}
+exports.follow = async(req,res)=>{
+    var email = req.body.user.email;
+    var slug = req.body.user.slug;
+    try{
+        User.find({follow:{$in:[slug]},email:email}).then(function(foll){
+            if(foll.length==0){
+                User.findById(req.payload.id).then(function(user){
+                    user.follow.push(slug);
+                    user.save().then(function(){
+                        return res.json(0);
+                    });
+                });
+            }else{
+                User.findById(req.payload.id).then(function(user){
+                    const index = user.follow.indexOf(slug);
+                    if (index > -1) {
+                        user.follow.splice(index, 1);
+                    }
+                    user.save().then(function(){
+                        return res.json(1);
+                    });
+                });
+            }
+        })
+    }catch(e){
+        console.log(e);
     }
 
+}
 exports.favorite = async (req,res)=>{
     var email = req.body.user.email;
     var slug = req.body.user.slug;
@@ -42,7 +84,15 @@ exports.favorite = async (req,res)=>{
                     });
                 });
             }else{
-                res.json(fav);
+                User.findById(req.payload.id).then(function(user){
+                    const index = user.favorites.indexOf(slug);
+                    if (index > -1) {
+                        user.favorites.splice(index, 1);
+                    }
+                    user.save().then(function(){
+                        return res.json(1);
+                    });
+                });
             }
         })
     }catch(e){

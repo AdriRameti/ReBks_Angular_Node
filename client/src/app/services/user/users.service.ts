@@ -23,4 +23,10 @@ export class UsersService {
   favorite(body:Object):Observable<any>{
     return this.http.post(environment.url+'/user/favorite',body);
   }
+  showFollow(slug:string):Observable<any>{
+    return this.http.get(environment.url+'/user/showFoll/'+slug)
+  }
+  follow(body:Object):Observable<any>{
+    return this.http.post(environment.url+'/user/follow',body);
+  }
 }

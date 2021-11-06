@@ -7,5 +7,7 @@ router.get('/',auth.required,userControler.readUser);
 router.post('/register',userControler.createUser);
 router.post('/login',userControler.readLogin);
 router.get('/showFav/:slug',auth.required,userControler.showFav);
+router.get('/showFoll/:slug',auth.required,userControler.showFoll);
 router.post('/favorite',auth.required,userControler.favorite);
+router.post('/follow',auth.required,userControler.follow);
 module.exports = router;

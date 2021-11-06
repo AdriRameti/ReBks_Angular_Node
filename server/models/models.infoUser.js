@@ -44,13 +44,13 @@ User.methods.generateJWT = function() {
       exp: parseInt(exp.getTime() / 1000),
     }, secret);
   };
-
+  
   User.methods.toAuthJSON = function(){
     return {
       userName: this.userName,
       email: this.email,
       token: this.generateJWT(),
-      image: this.image
+      favorites: this.favorites
     };
   };
 module.exports = mongoose.model('User',User);

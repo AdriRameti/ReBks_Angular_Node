@@ -26,6 +26,7 @@ export class FavButtonComponent{
   }
   @Input() books!: Books;
   @Output() toggle = new EventEmitter<string>();
+
   favorite(){
     var credentials = localStorage.getItem('credentials') || "";
     var myCredentials = null
@@ -42,7 +43,6 @@ export class FavButtonComponent{
       slug:slug,
       email:email
     }}
-    console.log(MyObjejct);
     this.userService.isAuthenticated.pipe(concatMap(
       (authenticated)=>{
       if (!authenticated) {
@@ -53,7 +53,7 @@ export class FavButtonComponent{
       return this.usersService.showFav(slug)
       .pipe(tap(
         data => {
-          
+          return data;
         }
       ));
     }
@@ -62,6 +62,15 @@ export class FavButtonComponent{
         this.usersService.favorite(MyObjejct).subscribe(data=>{
           console.log(data);
           if(data==0){
+            localStorage.setItem('option',"0");
+            this.toggle.emit(slug);
+            
+          } 
+      });
+      }else{
+        this.usersService.favorite(MyObjejct).subscribe(data=>{
+          if(data==1){
+            localStorage.setItem('option',"1");
             this.toggle.emit(slug);
           }
         });

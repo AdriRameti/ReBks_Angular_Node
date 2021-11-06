@@ -74,6 +74,9 @@
   .red{
     color: red;
   }
+  .green{
+    color: #4D9160;
+  }
   .card-body {
     height: 200px;
     padding: 1em 0;

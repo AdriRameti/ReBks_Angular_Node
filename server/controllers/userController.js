@@ -4,15 +4,34 @@ var auth = require('../controllers/auth');
 
 exports.readUser = async(req,res)=>{
 try{
-    User.findById(req.payload.id).then(function(user){
-        if(!user){
-            return res.status(401);
-        }
-        return res.json({user: user.toAuthJSON()});
+    User.aggregate().unwind({path:"$comments"})
+    .project({"comments":1})
+    .lookup({from:'users',localField: '_id', foreignField: '_id', as: 'users'})
+    .then(function(data){
+        res.json(data);
     })
 }catch(e){
     console.log(e);
 }
+}
+exports.createComment = async(req,res)=>{
+    var Comment = req.body;
+    try{
+        User.find({comments:{$in:[Comment]},_id:req.body.autor}).then(function(com){
+            if(com.length==0){
+                User.findById(req.payload.id).then(function(user){
+                    user.comments.push(Comment);
+                    user.save().then(function(data){
+                        res.json(0);
+                    });
+                });
+            }else{
+                res.json(1);
+            }
+        })
+    }catch(e){
+        console.log(e);
+    }
 }
 exports.showFoll = async(req,res)=>{
     var userName = req.params.userName;

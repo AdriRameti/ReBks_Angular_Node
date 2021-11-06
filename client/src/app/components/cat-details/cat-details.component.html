@@ -1,4 +1,5 @@
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <br><br><br><br><br>
 <div class = "card-wrapper" *ngFor="let datos of listDetails">
     <div class = "card">
@@ -56,7 +57,15 @@
             Add to Cart 
           </button>
         </div>
-  
+        <div>
+          <h3>Rating</h3>
+          <i class="fas fa-star" id="1" (click)="rating(1)"></i>
+          <i class="fas fa-star" id="2" (click)="rating(2)"></i>
+          <i class="fas fa-star" id="3" (click)="rating(3)"></i>
+          <i class="fas fa-star" id="4" (click)="rating(4)"></i>
+          <i class="fas fa-star" id="5" (click)="rating(5)"></i>
+        </div>
+        
       </div>
     </div>
     <!-- Contenedor Principal -->
@@ -65,29 +74,29 @@
   <div class="comments-container">
 		<h1>Comentarios</h1>
     <br/>
-    <form>
+    <form [formGroup]="commentForm" (ngSubmit)="post()" #f="ngForm">
       <div class="input-box">
-        <input type="text" id="comment" placeholder="Comentario"/>
+        <input type="text" id="comment" placeholder="Comentario" formControlName="comment"/>
         <div class="underline"></div>
         <br/>
-        <a class="post">Post</a>
+        <input id="continueForm" type="submit" value="Post" [disabled]="f.invalid">
       </div>
   </form>
     <br/> <br/> <br/> <br/>
 		<ul id="comments-list" class="comments-list">
-			<li>
+			<li *ngFor="let datos of listComments">
 				<div class="comment-main-level">
 					<!-- Avatar -->
 					<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
 					<!-- Contenedor del Comentario -->
 					<div class="comment-box">
 						<div class="comment-head">
-							<h6 class="comment-name by-author">Agustin Ortiz</h6>
+							<h6 class="comment-name by-author"></h6>
 							<i class="fa fa-reply"></i>
 							<i class="fa fa-heart"></i>
 						</div>
 						<div class="comment-content">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+							{{datos.comments.body}}
 						</div>
 					</div>
 				</div>

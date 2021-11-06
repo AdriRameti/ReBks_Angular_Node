@@ -169,7 +169,11 @@ img{
         padding-top: 0;
     }
 }
-
+.fa-star{
+    cursor: pointer;
+    font-size: 25px;
+    color: rgb(150, 149, 149);
+}
 /*COMMENTS*/
  form .input-box{
     width: 100%;
@@ -213,19 +217,19 @@ img{
     transform: scaleX(1);
     transform-origin: left;
   }
-  .post{
-    background: #6aac7d;
-    color: #FFF;
-    font-size: 30px;
-    padding: 3px 5px;
-    font-weight: 700;
-    margin-left: 10px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    form .input-box input[type="submit"]{
+    font-size: 17px;
+    max-width: 100px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    background:linear-gradient(to right, #000000 0%, #403d3e 100%);
+    transition: all 0.3s ease;
   }
-  .post:hover{
-      cursor: pointer;
+  
+  form .input-box input[type="submit"]:hover{
+    letter-spacing: 1px;
+    background:linear-gradient(to left, #000000 0%, #403d3e 100%)
   }
 
 a {

@@ -4,9 +4,10 @@ var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 var secret= require('../config').secret;
 const Comments = mongoose.Schema({
-    bodyComment:{type:String},
-    nameUser:{type:String},
-    idBook: { type: String}
+    body:{type:String},
+    autor:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    book: {type: mongoose.Schema.Types.ObjectId, ref: 'book'},
+    favorito:[{type:String}]
 })
 const User = mongoose.Schema({
     userName:{type:String},
@@ -47,6 +48,7 @@ User.methods.generateJWT = function() {
   
   User.methods.toAuthJSON = function(){
     return {
+      id:this._id,
       userName: this.userName,
       email: this.email,
       token: this.generateJWT(),

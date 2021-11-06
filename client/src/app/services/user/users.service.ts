@@ -29,4 +29,10 @@ export class UsersService {
   follow(body:Object):Observable<any>{
     return this.http.post(environment.url+'/user/follow',body);
   }
+  comments(body:Object):Observable<any>{
+    return this.http.post(environment.url+'/user/comments',body);
+  }
+  showComments():Observable<any>{
+    return this.http.get(environment.url+'/user/');
+  }
 }

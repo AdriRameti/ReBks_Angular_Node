@@ -15,7 +15,7 @@ exports.findallBooks = async(req,res) =>{
     var limit = parseInt(req.query.limit);
     var skip = parseInt(req.query.skip);
     try{
-        const books = await book.find().limit(limit).skip(skip);
+        const books = await book.find().populate('autor').limit(limit).skip(skip);
         res.json(books)
     }catch(e){
         console.log(e);
@@ -24,7 +24,7 @@ exports.findallBooks = async(req,res) =>{
 
 exports.findOneBook = async(req,res) => {
     try{
-        const Book = await book.findById(req.params.id);
+        const Book = await book.findById(req.params.id).populate('autor');
         if(!Book){
             console.log('No se encontro el libro');
         }
@@ -42,7 +42,7 @@ exports.findThisBook = async (req,res) => {
             {asignatura:req.params.asignatura,
             curso:req.params.curso,
             ensenanza:req.params.ensenanza}
-            ).limit(limit).skip(skip);
+            ).populate('autor').limit(limit).skip(skip);
         if(!Book){
             console.log('No se encotro este libro');
         }
@@ -54,20 +54,20 @@ exports.findThisBook = async (req,res) => {
 exports.findSearchBook = async (req,res) =>{
     try{
         if(req.params.tipo == 0){
-            const Book = await book.find({asignatura:{$regex:'.*'+req.params.search+'.*'}});
+            const Book = await book.find({asignatura:{$regex:'.*'+req.params.search+'.*'}}).populate('autor');
             if(!Book){
                 console.log('No se encntro el libro de la busqueda');
             }
             res.json(Book);
         }else if(req.params.tipo != 0){
             if(req.params.tipo == -1){
-                const Libro = await book.find({ensenanza:req.params.search});
+                const Libro = await book.find({ensenanza:req.params.search}).populate('autor');
                 if(!Libro){
                     console.log('No se encontro el libro de esa Enseñanza');
                 }
                 res.json(Libro);
             }else{
-                const Libro = await book.find({ensenanza:req.params.search,curso:req.params.tipo});
+                const Libro = await book.find({ensenanza:req.params.search,curso:req.params.tipo}).populate('autor');
                 if(!Libro){
                     console.log("No se encontro el libro de esa enseñanza y curso");
                 }
@@ -81,7 +81,7 @@ exports.findSearchBook = async (req,res) =>{
 }
 exports.findDetailsBook = async (req,res)=>{
     try{
-        const Books = await book.find({slug:req.params.slug});
+        const Books = await book.find({slug:req.params.slug}).populate('autor');
         if(!Books){
             console.log("No se ha encontrado el details del libro");
         }

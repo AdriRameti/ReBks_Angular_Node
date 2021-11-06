@@ -45,9 +45,9 @@ export class CatBooksComponent implements OnInit {
     }
     
   }
-  followButton(slug:string){
+  followButton(userName:string){
     var optionfollow = localStorage.getItem('option-follow');
-    var btn_like = document.getElementById(slug+'FLLW') as HTMLElement;
+    var btn_like = document.getElementById(userName) as HTMLElement;
     if(optionfollow=='0'){
       btn_like.classList.add('green');
     }else{
@@ -84,13 +84,17 @@ export class CatBooksComponent implements OnInit {
         if(asignaturas && curso && tituEnsen&&limitBooks){
           this._BooksService.findBooksPag(asignaturas,curso,tituEnsen,limitBooks,skip).subscribe(data =>{
             this.listBooks = data;
-            
+            console.log(data);
           setTimeout(() => {
             this.userService.currentUser.subscribe(datos=>{
               this.currentUser = datos;
-
+              var lookFav = false
               this.listBooks.forEach(element=>{
-                var lookFav = this.currentUser.favorites.includes(element.slug);
+                
+                if(this.currentUser.favorites){
+                  lookFav = this.currentUser.favorites.includes(element.slug);
+                }
+               
                 
                 if(lookFav==true){
                   var btn_like = document.getElementById(element.slug) as HTMLElement;
@@ -98,6 +102,19 @@ export class CatBooksComponent implements OnInit {
                 }
               })
             });
+            this.userService.currentUser.subscribe(datos=>{
+              this.currentUser=datos;
+              var lookFoll = false;
+              this.listBooks.forEach(element=>{
+                if(this.currentUser.follow){
+                  lookFoll = this.currentUser.follow.includes(element.autor.userName);
+                }
+                if(lookFoll==true){
+                  var btn_like = document.getElementById(element.autor.userName) as HTMLElement;
+                  btn_like.classList.add('green');
+                }
+              })
+            })
           },10);
           })
         }else{

@@ -50,7 +50,8 @@ User.methods.generateJWT = function() {
       userName: this.userName,
       email: this.email,
       token: this.generateJWT(),
-      favorites: this.favorites
+      favorites: this.favorites,
+      follow:this.follow
     };
   };
 module.exports = mongoose.model('User',User);

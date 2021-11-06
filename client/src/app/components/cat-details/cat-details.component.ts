@@ -47,7 +47,6 @@ export class CatDetailsComponent implements OnInit {
     let slug : string | null = localStorage.getItem('slug');
     if(slug){
       this._BooksService.findDetailsBook(slug).subscribe(data=>{
-
         this.listDetails = data;
       });
     }

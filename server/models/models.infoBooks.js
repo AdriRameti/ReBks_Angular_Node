@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const slug = require('slug');
-
 const imgSchema = mongoose.Schema({
     portada:{type:String},
     subPortada:{type:String},
@@ -20,7 +19,8 @@ const bookSchema = mongoose.Schema({
     estado:{type:String,} ,
     descripcion:{type:String} ,
     precio:{type:String},
-    img:imgSchema
+    img:imgSchema,
+    autor:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
 bookSchema.plugin(uniqueValidator,{message:'is already taken'});

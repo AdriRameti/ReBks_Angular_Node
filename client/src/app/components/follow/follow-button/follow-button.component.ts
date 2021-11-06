@@ -35,19 +35,18 @@ export class FollowButtonComponent{
       }
     }
     var email =myCredentials["email"]
-    var slug = this.books['slug'];
+    var userName = this.books.autor.userName;
     var MyObjejct = {user:{
-      slug:slug,
+      userName:userName,
       email:email
     }}
-    
     this.userService.isAuthenticated.pipe(concatMap(
       (authenticated)=>{
       if (!authenticated) {
         this.router.navigateByUrl('/login');
         return of(null);
       }
-      return this.usersService.showFollow(slug)
+      return this.usersService.showFollow(userName)
       .pipe(tap(
         data => {
         }
@@ -60,14 +59,14 @@ export class FollowButtonComponent{
           console.log(data);
           if(data==0){
             localStorage.setItem('option-follow',"0");
-            this.follow_btn.emit(slug);
+            this.follow_btn.emit(userName);
           }
         });
       }else{
-        this.usersService.favorite(MyObjejct).subscribe(data=>{
+        this.usersService.follow(MyObjejct).subscribe(data=>{
           if(data==1){
             localStorage.setItem('option-follow',"1");
-            this.follow_btn.emit(slug);
+            this.follow_btn.emit(userName);
           }
         });
       }

@@ -15,13 +15,13 @@ try{
 }
 }
 exports.showFoll = async(req,res)=>{
-    var slug = req.params.slug;
+    var userName = req.params.userName;
     try{
-        User.find({follow:{$in:[slug]}}).then(function(fav){
-            if(!fav){
+        User.find({follow:{$in:[userName]}}).then(function(foll){
+            if(!foll){
                 res.json(0);
             }else{
-                res.json(fav);
+                res.json(foll);
             }
         })
     }catch(e){
@@ -44,19 +44,19 @@ exports.showFav = async(req,res)=>{
 }
 exports.follow = async(req,res)=>{
     var email = req.body.user.email;
-    var slug = req.body.user.slug;
+    var userName = req.body.user.userName;
     try{
-        User.find({follow:{$in:[slug]},email:email}).then(function(foll){
+        User.find({follow:{$in:[userName]},email:email}).then(function(foll){
             if(foll.length==0){
                 User.findById(req.payload.id).then(function(user){
-                    user.follow.push(slug);
+                    user.follow.push(userName);
                     user.save().then(function(){
                         return res.json(0);
                     });
                 });
             }else{
                 User.findById(req.payload.id).then(function(user){
-                    const index = user.follow.indexOf(slug);
+                    const index = user.follow.indexOf(userName);
                     if (index > -1) {
                         user.follow.splice(index, 1);
                     }

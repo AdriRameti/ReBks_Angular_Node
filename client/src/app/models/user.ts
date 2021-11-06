@@ -3,5 +3,6 @@ export interface User {
     token: string;
     userName: string;
     favorites: string[];
+    follow:string[];
   }
   

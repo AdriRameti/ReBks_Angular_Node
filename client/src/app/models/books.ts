@@ -1,4 +1,4 @@
-
+import { User } from "./user";
 export interface Books{
     ensenanza:string,
     curso:number,
@@ -12,6 +12,7 @@ export interface Books{
     precio:string,
     img: Images,
     slug:string,
+    autor:User,
     _id:string
 }
 

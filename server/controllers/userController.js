@@ -16,7 +16,13 @@ try{
 }
 exports.createComment = async(req,res)=>{
     var Comment = req.body;
+    var idBook = 'ObjectId("'+req.body.book+'")';
+    console.log(idBook);
     try{
+        // User.aggregate().unwind({path:"$comments"}).match({"comments.book":req.body.book}).then(function(data){
+        //     console.log(data);
+        //     res.json(9);
+        // });
         User.find({comments:{$in:[Comment]},_id:req.body.autor}).then(function(com){
             if(com.length==0){
                 User.findById(req.payload.id).then(function(user){
@@ -37,6 +43,7 @@ exports.showFoll = async(req,res)=>{
     var userName = req.params.userName;
     try{
         User.find({follow:{$in:[userName]}}).then(function(foll){
+            console.log(foll);
             if(!foll){
                 res.json(0);
             }else{

@@ -6,7 +6,8 @@ export interface User {
     userName: string;
     favorites: string[];
     follow:string[];
-    comments:[Comment]
+    comments:Comment;
+    users:User;
   }
   export interface Comment{
     body:string;

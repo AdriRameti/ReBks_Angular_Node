@@ -47,12 +47,15 @@ export class CatBooksComponent implements OnInit {
   }
   followButton(userName:string){
     var optionfollow = localStorage.getItem('option-follow');
-    var btn_like = document.getElementById(userName) as HTMLElement;
-    if(optionfollow=='0'){
-      btn_like.classList.add('green');
-    }else{
-      btn_like.classList.remove('green');
-    }
+    var btn = document.querySelectorAll('app-follow-button');
+    btn.forEach(element=>{
+      console.log(element.id);
+      if((element.id == userName)&&(optionfollow=='0')){
+        element.classList.add('green');
+      }else{
+        element.classList.remove('green');
+      }
+    })
   }
   changeOption(){
     if(this.dataSearch){
@@ -84,7 +87,6 @@ export class CatBooksComponent implements OnInit {
         if(asignaturas && curso && tituEnsen&&limitBooks){
           this._BooksService.findBooksPag(asignaturas,curso,tituEnsen,limitBooks,skip).subscribe(data =>{
             this.listBooks = data;
-            console.log(data);
           setTimeout(() => {
             this.userService.currentUser.subscribe(datos=>{
               this.currentUser = datos;
@@ -110,8 +112,16 @@ export class CatBooksComponent implements OnInit {
                   lookFoll = this.currentUser.follow.includes(element.autor.userName);
                 }
                 if(lookFoll==true){
-                  var btn_like = document.getElementById(element.autor.userName) as HTMLElement;
-                  btn_like.classList.add('green');
+                  console.log(element);
+                  var btn = document.querySelectorAll('app-follow-button');
+                  btn.forEach(element=>{
+                    console.log(element.id);
+                    if((element.id)){
+                      element.classList.add('green');
+                    }else{
+                      element.classList.remove('green');
+                    }
+                  })
                 }
               })
             })

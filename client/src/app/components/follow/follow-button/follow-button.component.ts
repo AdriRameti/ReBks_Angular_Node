@@ -19,12 +19,13 @@ export class FollowButtonComponent{
     private usersService:UsersService
   ) { }
 
-  ngOnInit(): void {
-  }
-
   @Input() books!: Books;
   @Output() follow_btn = new EventEmitter<string>();
+  ngOnInit(): void {
+    console.log(this.books);
+  }
   follow(){
+    console.log('follow',this.books);
     var credentials = localStorage.getItem('credentials') || "";
     var myCredentials = null
     if(credentials == ""){
@@ -36,6 +37,7 @@ export class FollowButtonComponent{
     }
     var email =myCredentials["email"]
     var userName = this.books.autor.userName;
+    console.log(userName);
     var MyObjejct = {user:{
       userName:userName,
       email:email

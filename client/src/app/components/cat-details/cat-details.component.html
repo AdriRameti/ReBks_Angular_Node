@@ -87,12 +87,12 @@
 			<li *ngFor="let datos of listComments">
 				<div class="comment-main-level">
 					<!-- Avatar -->
-					<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
+					<div class="comment-avatar" ><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
 					<!-- Contenedor del Comentario -->
 					<div class="comment-box">
 						<div class="comment-head">
-							<h6 class="comment-name by-author"></h6>
-							<i class="fa fa-reply"></i>
+							<h6 class="comment-name by-author" *ngFor="let data of listUser">{{data.userName}}</h6>
+              <i class="fas fa-trash-alt"></i>
 							<i class="fa fa-heart"></i>
 						</div>
 						<div class="comment-content">

@@ -20,6 +20,7 @@ export class CatDetailsComponent implements OnInit {
   dataSearch!:string;
   listComments!:User[];
   listUser!:User[];
+  
   constructor(
     private route : ActivatedRoute, 
     private _BooksService : BooksService,
@@ -41,13 +42,88 @@ export class CatDetailsComponent implements OnInit {
     });
     this.changeOption();
     this.UserService.showComments().subscribe(data=>{
-      console.log(data);
+      console.log(data[0].users);
+      this.listUser = data[0].users;
       this.listComments = data;
     });
   }
 
   rating(valor:number){
-    console.log(valor);
+    var valId1; var valId2; var valId3; var valId4; var valId5;
+    var firstStar; var secondStar; var threeStar; var fourStar; var fiveStar;
+
+    switch(valor){
+      case 1:
+        valId1 = valor.toString();
+        firstStar = document.getElementById(valId1) as HTMLElement;
+        secondStar = document.getElementById("2") as HTMLElement;
+        threeStar = document.getElementById("3") as HTMLElement;
+        fourStar = document.getElementById("4") as HTMLElement;
+        fiveStar = document.getElementById("5") as HTMLElement;
+
+        firstStar.classList.add('rating');
+        secondStar.classList.remove('rating');
+        threeStar.classList.remove('rating');
+        fourStar.classList.remove('rating');
+        fiveStar.classList.remove('rating');
+        break;
+      case 2:
+        valId2 = valor.toString();
+        firstStar = document.getElementById("1") as HTMLElement;
+        secondStar = document.getElementById(valId2) as HTMLElement;
+        threeStar = document.getElementById("3") as HTMLElement;
+        fourStar = document.getElementById("4") as HTMLElement;
+        fiveStar = document.getElementById("5") as HTMLElement;
+
+        firstStar.classList.add('rating');
+        secondStar.classList.add('rating');
+        threeStar.classList.remove('rating');
+        fourStar.classList.remove('rating');
+        fiveStar.classList.remove('rating');
+        break;
+      case 3:
+        valId3 = valor.toString();
+        firstStar = document.getElementById("1") as HTMLElement;
+        secondStar = document.getElementById("2") as HTMLElement;
+        threeStar = document.getElementById(valId3) as HTMLElement;
+        fourStar = document.getElementById("4") as HTMLElement;
+        fiveStar = document.getElementById("5") as HTMLElement;
+
+        firstStar.classList.add('rating');
+        secondStar.classList.add('rating');
+        threeStar.classList.add('rating');
+        fourStar.classList.remove('rating');
+        fiveStar.classList.remove('rating');
+        break;
+      case 4:
+        valId4 = valor.toString();
+        firstStar = document.getElementById("1") as HTMLElement;
+        secondStar = document.getElementById("2") as HTMLElement;
+        threeStar = document.getElementById("3") as HTMLElement;
+        fourStar = document.getElementById(valId4) as HTMLElement;
+        fiveStar = document.getElementById("5") as HTMLElement;
+
+        firstStar.classList.add('rating');
+        secondStar.classList.add('rating');
+        threeStar.classList.add('rating');
+        fourStar.classList.add('rating');
+        fiveStar.classList.remove('rating');
+        break;
+      case 5:
+        valId5 = valor.toString();
+        firstStar = document.getElementById("1") as HTMLElement;
+        secondStar = document.getElementById("2") as HTMLElement;
+        threeStar = document.getElementById("3") as HTMLElement;
+        fourStar = document.getElementById("4") as HTMLElement;
+        fiveStar = document.getElementById(valId5) as HTMLElement;
+
+        firstStar.classList.add('rating');
+        secondStar.classList.add('rating');
+        threeStar.classList.add('rating');
+        fourStar.classList.add('rating');
+        fiveStar.classList.add('rating');
+        break;
+    }
   }
   post(){
     var body = this.commentForm.controls['comment'].value;

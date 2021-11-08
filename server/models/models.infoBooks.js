@@ -7,6 +7,10 @@ const imgSchema = mongoose.Schema({
     imgVenta1:{type:String},
     imgVenta2:{type:String}
 });
+// const Comments = mongoose.Schema({
+//     body:{type:String},
+//     autor:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+// });
 const bookSchema = mongoose.Schema({
     slug:{type:String, lowercase: true, unique: true},
     ensenanza:{type:String},
@@ -20,6 +24,7 @@ const bookSchema = mongoose.Schema({
     descripcion:{type:String} ,
     precio:{type:String},
     img:imgSchema,
+    // comments:[Comments],
     autor:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 

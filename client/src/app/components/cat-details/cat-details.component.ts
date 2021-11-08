@@ -41,11 +41,6 @@ export class CatDetailsComponent implements OnInit {
       this.changeOption();
     });
     this.changeOption();
-    this.UserService.showComments().subscribe(data=>{
-      console.log(data[0].users);
-      this.listUser = data[0].users;
-      this.listComments = data;
-    });
   }
 
   rating(valor:number){
@@ -149,8 +144,14 @@ export class CatDetailsComponent implements OnInit {
         autor:autor,
         book:book
       };
-
       this.UserService.comments(comment).subscribe(data=>{
+        if(data == 0){
+          this.UserService.showComments(book).subscribe(data=>{
+            console.log(data);
+            this.listUser = data[0].users;
+            this.listComments = data;
+          })
+        }
       })
     }
   }
@@ -173,6 +174,13 @@ export class CatDetailsComponent implements OnInit {
     if(slug){
       this._BooksService.findDetailsBook(slug).subscribe(data=>{
         this.listDetails = data;
+        var id = data[0]._id;
+        if(id){
+          this.UserService.showComments(id).subscribe(data=>{
+            this.listUser = data[0].users;
+            this.listComments = data;
+          });
+        }
       });
     }
 

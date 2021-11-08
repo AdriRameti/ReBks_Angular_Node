@@ -14,6 +14,8 @@ export class ProfileCatComponent implements OnInit {
   user: User = {} as User;
   errors: Object = {};
   isSubmitting = false;
+  listFollow!: String[];
+  listFavorite!:String[];
   constructor(
     private router: Router,
     private userService: UserService,
@@ -35,6 +37,8 @@ export class ProfileCatComponent implements OnInit {
     if(this.validaButton == false){
       this.changeStyle();
     }
+    this.listFollow = this.userService.getCurrentUser().follow;
+    this.listFavorite = this.userService.getCurrentUser().favorites;
   }
 
   changeStyle(){

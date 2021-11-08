@@ -3,11 +3,16 @@ var User = require('../models/models.infoUser')
 var auth = require('../controllers/auth');
 
 exports.readUser = async(req,res)=>{
+    var myId =req.params.id;
+    console.log(myId);
+    var id = mongoose.Types.ObjectId(myId);
 try{
     User.aggregate().unwind({path:"$comments"})
+    .match({"comments.book":id})
     .project({"comments":1})
     .lookup({from:'users',localField: '_id', foreignField: '_id', as: 'users'})
     .then(function(data){
+        console.log(data);
         res.json(data);
     })
 }catch(e){
@@ -16,13 +21,7 @@ try{
 }
 exports.createComment = async(req,res)=>{
     var Comment = req.body;
-    var idBook = 'ObjectId("'+req.body.book+'")';
-    console.log(idBook);
     try{
-        // User.aggregate().unwind({path:"$comments"}).match({"comments.book":req.body.book}).then(function(data){
-        //     console.log(data);
-        //     res.json(9);
-        // });
         User.find({comments:{$in:[Comment]},_id:req.body.autor}).then(function(com){
             if(com.length==0){
                 User.findById(req.payload.id).then(function(user){

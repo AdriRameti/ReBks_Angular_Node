@@ -32,7 +32,7 @@ export class UsersService {
   comments(body:Object):Observable<any>{
     return this.http.post(environment.url+'/user/comments',body);
   }
-  showComments():Observable<any>{
-    return this.http.get(environment.url+'/user/');
+  showComments(id:String):Observable<any>{
+    return this.http.get(environment.url+'/user/'+id);
   }
 }

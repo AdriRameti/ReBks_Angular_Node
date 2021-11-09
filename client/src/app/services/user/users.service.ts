@@ -38,4 +38,7 @@ export class UsersService {
   rating(book:String,user:String,rate:Number):Observable<any>{
     return this.http.get(environment.url+'/user/rating/show?book='+book+'&user='+user+'&rate='+rate);
   }
+  showRating(book:String):Observable<any>{
+    return this.http.get(environment.url+'/user/rating/show/mostrar?book='+book);
+  }
 }

@@ -2,6 +2,13 @@ var mongoose = require('mongoose');
 var User = require('../models/models.infoUser')
 var auth = require('../controllers/auth');
 
+exports.showRating = async(req,res)=>{
+    console.log(req.query.book);
+    var idUser = req.query.book;
+    User.findById(idUser).then(function(user){
+        res.json(user);
+    });
+}
 exports.rating = async(req,res)=>{
     var book = req.query.book;
     var user = req.query.user;

@@ -86,6 +86,7 @@ export class CatBooksComponent implements OnInit {
 
         if(asignaturas && curso && tituEnsen&&limitBooks){
           this._BooksService.findBooksPag(asignaturas,curso,tituEnsen,limitBooks,skip).subscribe(data =>{
+            console.log(data);
             this.listBooks = data;
           setTimeout(() => {
             this.userService.currentUser.subscribe(datos=>{
@@ -108,21 +109,22 @@ export class CatBooksComponent implements OnInit {
               this.currentUser=datos;
               var lookFoll = false;
               this.listBooks.forEach(element=>{
+                console.log(this.currentUser.follow.includes(element.autor.userName));
                 if(this.currentUser.follow){
                   lookFoll = this.currentUser.follow.includes(element.autor.userName);
+                  if(lookFoll==true){
+                    var name = element.autor.userName
+                    var btn = document.querySelectorAll('app-follow-button');
+                    btn.forEach(element=>{
+                      if((element.id == name)){
+                        element.classList.add('green');
+                      }else{
+                        element.classList.remove('green');
+                      }
+                    })
+                  }
                 }
-                if(lookFoll==true){
-                  console.log(element);
-                  var btn = document.querySelectorAll('app-follow-button');
-                  btn.forEach(element=>{
-                    console.log(element.id);
-                    if((element.id)){
-                      element.classList.add('green');
-                    }else{
-                      element.classList.remove('green');
-                    }
-                  })
-                }
+
               })
             })
           },10);

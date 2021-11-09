@@ -46,79 +46,95 @@ export class CatDetailsComponent implements OnInit {
   rating(valor:number){
     var valId1; var valId2; var valId3; var valId4; var valId5;
     var firstStar; var secondStar; var threeStar; var fourStar; var fiveStar;
-
-    switch(valor){
-      case 1:
-        valId1 = valor.toString();
-        firstStar = document.getElementById(valId1) as HTMLElement;
-        secondStar = document.getElementById("2") as HTMLElement;
-        threeStar = document.getElementById("3") as HTMLElement;
-        fourStar = document.getElementById("4") as HTMLElement;
-        fiveStar = document.getElementById("5") as HTMLElement;
-
-        firstStar.classList.add('rating');
-        secondStar.classList.remove('rating');
-        threeStar.classList.remove('rating');
-        fourStar.classList.remove('rating');
-        fiveStar.classList.remove('rating');
-        break;
-      case 2:
-        valId2 = valor.toString();
-        firstStar = document.getElementById("1") as HTMLElement;
-        secondStar = document.getElementById(valId2) as HTMLElement;
-        threeStar = document.getElementById("3") as HTMLElement;
-        fourStar = document.getElementById("4") as HTMLElement;
-        fiveStar = document.getElementById("5") as HTMLElement;
-
-        firstStar.classList.add('rating');
-        secondStar.classList.add('rating');
-        threeStar.classList.remove('rating');
-        fourStar.classList.remove('rating');
-        fiveStar.classList.remove('rating');
-        break;
-      case 3:
-        valId3 = valor.toString();
-        firstStar = document.getElementById("1") as HTMLElement;
-        secondStar = document.getElementById("2") as HTMLElement;
-        threeStar = document.getElementById(valId3) as HTMLElement;
-        fourStar = document.getElementById("4") as HTMLElement;
-        fiveStar = document.getElementById("5") as HTMLElement;
-
-        firstStar.classList.add('rating');
-        secondStar.classList.add('rating');
-        threeStar.classList.add('rating');
-        fourStar.classList.remove('rating');
-        fiveStar.classList.remove('rating');
-        break;
-      case 4:
-        valId4 = valor.toString();
-        firstStar = document.getElementById("1") as HTMLElement;
-        secondStar = document.getElementById("2") as HTMLElement;
-        threeStar = document.getElementById("3") as HTMLElement;
-        fourStar = document.getElementById(valId4) as HTMLElement;
-        fiveStar = document.getElementById("5") as HTMLElement;
-
-        firstStar.classList.add('rating');
-        secondStar.classList.add('rating');
-        threeStar.classList.add('rating');
-        fourStar.classList.add('rating');
-        fiveStar.classList.remove('rating');
-        break;
-      case 5:
-        valId5 = valor.toString();
-        firstStar = document.getElementById("1") as HTMLElement;
-        secondStar = document.getElementById("2") as HTMLElement;
-        threeStar = document.getElementById("3") as HTMLElement;
-        fourStar = document.getElementById("4") as HTMLElement;
-        fiveStar = document.getElementById(valId5) as HTMLElement;
-
-        firstStar.classList.add('rating');
-        secondStar.classList.add('rating');
-        threeStar.classList.add('rating');
-        fourStar.classList.add('rating');
-        fiveStar.classList.add('rating');
-        break;
+    var id;
+    let slug : string | null = localStorage.getItem('slug');
+    var userId : any;
+    this.userService.currentUser.subscribe(data=>{
+      console.log(data);
+      userId = data.id;
+    });
+    if(userId&&slug){
+      this._BooksService.findDetailsBook(slug).subscribe(data=>{
+        id = data[0]._id;
+        this.UserService.rating(id,userId,valor).subscribe(data=>{
+        })
+      });
+      switch(valor){
+        case 1:
+          valId1 = valor.toString();
+          firstStar = document.getElementById(valId1) as HTMLElement;
+          secondStar = document.getElementById("2") as HTMLElement;
+          threeStar = document.getElementById("3") as HTMLElement;
+          fourStar = document.getElementById("4") as HTMLElement;
+          fiveStar = document.getElementById("5") as HTMLElement;
+  
+          firstStar.classList.add('rating');
+          secondStar.classList.remove('rating');
+          threeStar.classList.remove('rating');
+          fourStar.classList.remove('rating');
+          fiveStar.classList.remove('rating');
+          break;
+        case 2:
+          valId2 = valor.toString();
+          firstStar = document.getElementById("1") as HTMLElement;
+          secondStar = document.getElementById(valId2) as HTMLElement;
+          threeStar = document.getElementById("3") as HTMLElement;
+          fourStar = document.getElementById("4") as HTMLElement;
+          fiveStar = document.getElementById("5") as HTMLElement;
+  
+          firstStar.classList.add('rating');
+          secondStar.classList.add('rating');
+          threeStar.classList.remove('rating');
+          fourStar.classList.remove('rating');
+          fiveStar.classList.remove('rating');
+          break;
+        case 3:
+          valId3 = valor.toString();
+          firstStar = document.getElementById("1") as HTMLElement;
+          secondStar = document.getElementById("2") as HTMLElement;
+          threeStar = document.getElementById(valId3) as HTMLElement;
+          fourStar = document.getElementById("4") as HTMLElement;
+          fiveStar = document.getElementById("5") as HTMLElement;
+  
+          firstStar.classList.add('rating');
+          secondStar.classList.add('rating');
+          threeStar.classList.add('rating');
+          fourStar.classList.remove('rating');
+          fiveStar.classList.remove('rating');
+          break;
+        case 4:
+          valId4 = valor.toString();
+          firstStar = document.getElementById("1") as HTMLElement;
+          secondStar = document.getElementById("2") as HTMLElement;
+          threeStar = document.getElementById("3") as HTMLElement;
+          fourStar = document.getElementById(valId4) as HTMLElement;
+          fiveStar = document.getElementById("5") as HTMLElement;
+  
+          firstStar.classList.add('rating');
+          secondStar.classList.add('rating');
+          threeStar.classList.add('rating');
+          fourStar.classList.add('rating');
+          fiveStar.classList.remove('rating');
+          break;
+        case 5:
+          valId5 = valor.toString();
+          firstStar = document.getElementById("1") as HTMLElement;
+          secondStar = document.getElementById("2") as HTMLElement;
+          threeStar = document.getElementById("3") as HTMLElement;
+          fourStar = document.getElementById("4") as HTMLElement;
+          fiveStar = document.getElementById(valId5) as HTMLElement;
+  
+          firstStar.classList.add('rating');
+          secondStar.classList.add('rating');
+          threeStar.classList.add('rating');
+          fourStar.classList.add('rating');
+          fiveStar.classList.add('rating');
+          break;
+      }
+    }else{
+      this.router.navigate(['login']);
     }
+    
   }
   post(){
     var body = this.commentForm.controls['comment'].value;
@@ -175,6 +191,7 @@ export class CatDetailsComponent implements OnInit {
       this._BooksService.findDetailsBook(slug).subscribe(data=>{
         this.listDetails = data;
         var id = data[0]._id;
+        localStorage.setItem('idBook',id);
         if(id){
           this.UserService.showComments(id).subscribe(data=>{
             this.listUser = data[0].users;

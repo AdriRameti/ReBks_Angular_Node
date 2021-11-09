@@ -42,6 +42,7 @@ export class RegisterCatComponent implements OnInit {
       const credentials = this.registerForm.value;
       this.userService.attemptAuth(this.authType,credentials).subscribe(data=>{
         console.log(data);
+        this.router.navigate(['']);
       })
 
     }

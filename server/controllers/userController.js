@@ -2,9 +2,39 @@ var mongoose = require('mongoose');
 var User = require('../models/models.infoUser')
 var auth = require('../controllers/auth');
 
+exports.rating = async(req,res)=>{
+    var book = req.query.book;
+    var user = req.query.user;
+    var rate = req.query.rate;
+    var idBook = mongoose.Types.ObjectId(book);
+    var idUser = mongoose.Types.ObjectId(user);
+    var ratingObject = {
+        book:book,
+        user:user,
+        rate:rate
+      }
+    User.aggregate().unwind({path:"$rating"})
+    .match({"rating.book":idBook}).then(function(data){
+        if(data.length==0){
+            User.findById(idUser).then(function(user){
+                user.rating.push(ratingObject);
+                user.save().then(function(data){
+                    res.json(0);
+                });
+            });
+        }else{
+            User.findById(idUser).then(function(user){
+                user.rating=ratingObject;
+                user.save().then(function(data){
+                    res.json(1);
+                });
+            })
+            
+        }
+    })
+}
 exports.readUser = async(req,res)=>{
     var myId =req.params.id;
-    console.log(myId);
     var id = mongoose.Types.ObjectId(myId);
 try{
     User.aggregate().unwind({path:"$comments"})
@@ -12,7 +42,6 @@ try{
     .project({"comments":1})
     .lookup({from:'users',localField: '_id', foreignField: '_id', as: 'users'})
     .then(function(data){
-        console.log(data);
         res.json(data);
     })
 }catch(e){
@@ -130,7 +159,6 @@ exports.createUser = async (req,res) => {
         user.userName = req.body.user.userName;
         user.email = req.body.user.email;
         user.setPassword(req.body.user.password);
-
         user.save().then(function(){
             return res.json({user: user.toAuthJSON()})
         });

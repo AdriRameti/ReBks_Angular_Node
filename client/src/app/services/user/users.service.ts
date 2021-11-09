@@ -35,4 +35,7 @@ export class UsersService {
   showComments(id:String):Observable<any>{
     return this.http.get(environment.url+'/user/'+id);
   }
+  rating(book:String,user:String,rate:Number):Observable<any>{
+    return this.http.get(environment.url+'/user/rating/show?book='+book+'&user='+user+'&rate='+rate);
+  }
 }

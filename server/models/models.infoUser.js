@@ -9,6 +9,11 @@ const Comments = mongoose.Schema({
     book: {type: mongoose.Schema.Types.ObjectId, ref: 'book'},
     favorito:[{type:String}]
 })
+const Rating = mongoose.Schema({
+    rate:{type:Number},
+    autor:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    book: {type: mongoose.Schema.Types.ObjectId, ref: 'book'},
+});
 const User = mongoose.Schema({
     userName:{type:String},
     email:{type:String, unique:true},
@@ -17,6 +22,7 @@ const User = mongoose.Schema({
     follow:[{type:String}],
     favorites:[{type:String}],
     comments:[Comments],
+    rating:[Rating],
     hash:String,
     salt:String
 });

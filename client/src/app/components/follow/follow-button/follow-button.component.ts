@@ -22,7 +22,6 @@ export class FollowButtonComponent{
   @Input() books!: Books;
   @Output() follow_btn = new EventEmitter<string>();
   ngOnInit(): void {
-    console.log(this.books);
   }
   follow(){
     console.log('follow',this.books);

@@ -6,8 +6,7 @@ var secret= require('../config').secret;
 const Comments = mongoose.Schema({
     body:{type:String},
     autor:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    book: {type: mongoose.Schema.Types.ObjectId, ref: 'book'},
-    favorito:[{type:String}]
+    book: {type: mongoose.Schema.Types.ObjectId, ref: 'book'}
 })
 const Rating = mongoose.Schema({
     rate:{type:Number},

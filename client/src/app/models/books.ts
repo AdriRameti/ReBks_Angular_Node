@@ -13,9 +13,15 @@ export interface Books{
     img: Images,
     slug:string,
     autor:User,
-    _id:string
+    _id:string,
+    comments:Comments,
 }
 
+export interface Comments{
+    body:String;
+    autor:User;
+    book:Books;
+}
 export interface Images{
     portada:String,
     subPortada:string,

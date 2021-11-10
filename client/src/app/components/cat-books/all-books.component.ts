@@ -44,7 +44,4 @@ export class AllBooksComponent implements OnInit {
       this.listAllBooks = data;
     });
   }
-  prueba(){
-    console.log('asdasd')
-  }
 }

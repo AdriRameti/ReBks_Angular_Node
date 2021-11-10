@@ -8,7 +8,7 @@ import { FormGroup, FormControl, ValidationErrors ,Validator, Validators } from 
 import { of } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { UsersService } from 'src/app/services/user/users.service';
-import { User } from 'src/app/models/user';
+import { Comment, User } from 'src/app/models/user';
 @Component({
   selector: 'app-cat-details',
   templateUrl: './cat-details.component.html',
@@ -18,9 +18,9 @@ export class CatDetailsComponent implements OnInit {
 
   listDetails!: Books[];
   dataSearch!:string;
-  listComments!:User[];
+  listComments!:any[];
   listUser!:User[];
-  
+  canModify:boolean = false;
   constructor(
     private route : ActivatedRoute, 
     private _BooksService : BooksService,
@@ -42,6 +42,10 @@ export class CatDetailsComponent implements OnInit {
     });
     this.changeOption();
     this.printRate();
+    this.userService.currentUser.subscribe(user=>{
+    })
+  }
+  delete(){
   }
   printRate(){
     var valId1; var valId2; var valId3; var valId4; var valId5;
@@ -53,6 +57,9 @@ export class CatDetailsComponent implements OnInit {
       this._BooksService.findDetailsBook(slug).subscribe(data=>{
         id = data[0].autor._id;
         idBook = data[0]._id;
+        this.userService.currentUser.subscribe(data=>{
+          id=data.id;
+        });
         this.UserService.showRating(id).subscribe(data=>{
           var rating = data.rating;
           for(var i = 0; i<rating.length;i++){
@@ -142,7 +149,6 @@ export class CatDetailsComponent implements OnInit {
     let slug : string | null = localStorage.getItem('slug');
     var userId : any;
     this.userService.currentUser.subscribe(data=>{
-      console.log(data);
       userId = data.id;
     });
     if(userId&&slug){
@@ -252,13 +258,16 @@ export class CatDetailsComponent implements OnInit {
         autor:autor,
         book:book
       };
-      this.UserService.comments(comment).subscribe(data=>{
+      this._BooksService.comments(comment).subscribe(data=>{
         if(data == 0){
-          this.UserService.showComments(book).subscribe(data=>{
-            console.log(data);
-            this.listUser = data[0].users;
-            this.listComments = data;
-          })
+          let slug : string | null = localStorage.getItem('slug');
+          if(slug){
+            this._BooksService.findDetailsBook(slug).subscribe(data=>{
+              this.listDetails = data;
+              var id = data[0]._id;
+              this.listComments = data[0].comments;
+            });
+          }
         }
       })
     }
@@ -283,14 +292,7 @@ export class CatDetailsComponent implements OnInit {
       this._BooksService.findDetailsBook(slug).subscribe(data=>{
         this.listDetails = data;
         var id = data[0]._id;
-        localStorage.setItem('idBook',id);
-        if(id){
-          this.UserService.showComments(id).subscribe(data=>{
-            console.log(data);
-            this.listUser = data[0].users;
-            this.listComments = data;
-          });
-        }
+        this.listComments = data[0].comments;
       });
     }
 

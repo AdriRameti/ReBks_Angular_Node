@@ -1,3 +1,4 @@
+const  Mongoose  = require('mongoose');
 const book = require('../models/models.infoBooks');
 
 exports.createBook = async(req,res) => {
@@ -6,6 +7,27 @@ exports.createBook = async(req,res) => {
         Book = new book(req.body);
         await Book.save();
         res.send(Book);
+    }catch(e){
+        console.log(e);
+    }
+}
+exports.createComment = async(req,res)=>{
+    var Comment = req.body;
+    var id = Mongoose.Types.ObjectId(req.body.book);
+    try{
+        book.find({comments:{$in:[Comment]},_id:id}).then(function(com){
+            console.log(com);
+            if(com.length==0){
+                book.findById(id).then(function(book){
+                    book.comments.push(Comment);
+                    book.save().then(function(data){
+                        res.json(0);
+                    });
+                });
+            }else{
+                res.json(1);
+            }
+        })
     }catch(e){
         console.log(e);
     }
@@ -81,7 +103,7 @@ exports.findSearchBook = async (req,res) =>{
 }
 exports.findDetailsBook = async (req,res)=>{
     try{
-        const Books = await book.find({slug:req.params.slug}).populate('autor');
+        const Books = await book.find({slug:req.params.slug}).populate('comments.autor').populate('autor');
         if(!Books){
             console.log("No se ha encontrado el details del libro");
         }

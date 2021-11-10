@@ -3,8 +3,7 @@ var User = require('../models/models.infoUser')
 var auth = require('../controllers/auth');
 
 exports.showRating = async(req,res)=>{
-    console.log(req.query.book);
-    var idUser = req.query.book;
+    var idUser = req.query.id;
     User.findById(idUser).then(function(user){
         res.json(user);
     });
@@ -78,7 +77,6 @@ exports.showFoll = async(req,res)=>{
     var userName = req.params.userName;
     try{
         User.find({follow:{$in:[userName]}}).then(function(foll){
-            console.log(foll);
             if(!foll){
                 res.json(0);
             }else{

@@ -91,12 +91,12 @@
 					<!-- Contenedor del Comentario -->
 					<div class="comment-box">
 						<div class="comment-head">
-							<h6 class="comment-name by-author" *ngFor="let data of listUser">{{data.userName}}</h6>
-              <i class="fas fa-trash-alt"></i>
+							<h6 class="comment-name by-author" >{{datos.autor.userName}}</h6>
+              <i class="fas fa-trash-alt" (click)="delete()"></i>
 							<i class="fa fa-heart"></i>
 						</div>
 						<div class="comment-content">
-							{{datos.comments.body}}
+							{{datos.body}}
 						</div>
 					</div>
 				</div>

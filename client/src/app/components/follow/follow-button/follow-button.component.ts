@@ -24,7 +24,6 @@ export class FollowButtonComponent{
   ngOnInit(): void {
   }
   follow(){
-    console.log('follow',this.books);
     var credentials = localStorage.getItem('credentials') || "";
     var myCredentials = null
     if(credentials == ""){
@@ -36,7 +35,6 @@ export class FollowButtonComponent{
     }
     var email =myCredentials["email"]
     var userName = this.books.autor.userName;
-    console.log(userName);
     var MyObjejct = {user:{
       userName:userName,
       email:email
@@ -54,10 +52,8 @@ export class FollowButtonComponent{
       ));
     }
     )).subscribe((data)=>{
-      console.log(data.length);
       if(data.length===0){
         this.usersService.follow(MyObjejct).subscribe(data=>{
-          console.log(data);
           if(data==0){
             localStorage.setItem('option-follow',"0");
             this.follow_btn.emit(userName);

@@ -60,7 +60,6 @@ export class FavButtonComponent{
     )).subscribe((data)=>{
       if(data.length===0){
         this.usersService.favorite(MyObjejct).subscribe(data=>{
-          console.log(data);
           if(data==0){
             localStorage.setItem('option',"0");
             this.toggle.emit(slug);

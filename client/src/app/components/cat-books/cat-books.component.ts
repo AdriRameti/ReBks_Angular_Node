@@ -49,7 +49,6 @@ export class CatBooksComponent implements OnInit {
     var optionfollow = localStorage.getItem('option-follow');
     var btn = document.querySelectorAll('app-follow-button');
     btn.forEach(element=>{
-      console.log(element.id);
       if((element.id == userName)&&(optionfollow=='0')){
         element.classList.add('green');
       }else{
@@ -86,7 +85,6 @@ export class CatBooksComponent implements OnInit {
 
         if(asignaturas && curso && tituEnsen&&limitBooks){
           this._BooksService.findBooksPag(asignaturas,curso,tituEnsen,limitBooks,skip).subscribe(data =>{
-            console.log(data);
             this.listBooks = data;
           setTimeout(() => {
             this.userService.currentUser.subscribe(datos=>{
@@ -109,7 +107,6 @@ export class CatBooksComponent implements OnInit {
               this.currentUser=datos;
               var lookFoll = false;
               this.listBooks.forEach(element=>{
-                console.log(this.currentUser.follow.includes(element.autor.userName));
                 if(this.currentUser.follow){
                   lookFoll = this.currentUser.follow.includes(element.autor.userName);
                   if(lookFoll==true){

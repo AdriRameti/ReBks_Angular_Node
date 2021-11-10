@@ -32,4 +32,7 @@ export class BooksService {
   unfavorite():Observable<any>{
     return this.http.get(environment.url+'/books');
   }
+  comments(body:Object):Observable<any>{
+    return this.http.post(environment.url+'/books/comments',body);
+  }
 }

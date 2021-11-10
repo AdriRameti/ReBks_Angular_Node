@@ -75,7 +75,6 @@ export class UserService {
   update(user:Object): Observable<User> {
     return this.usersService.update(user)
     .pipe(map(data=>{
-      console.log(data);
       this.currentUserSubject.next(data.user);
       return data.user
     }));

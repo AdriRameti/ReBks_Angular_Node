@@ -73,6 +73,10 @@ exports.findallBooks = async(req,res) =>{
     var skip = parseInt(req.query.skip);
     try{
         const books = await book.find().populate('autor').limit(limit).skip(skip);
+        function comparar ( a , b){
+            return   b.autor.karma - a.autor.karma
+        }
+        books.sort(comparar)
         res.json(books)
     }catch(e){
         console.log(e);
@@ -85,6 +89,10 @@ exports.findOneBook = async(req,res) => {
         if(!Book){
             console.log('No se encontro el libro');
         }
+        function comparar ( a , b){
+            return   b.autor.karma - a.autor.karma
+        }
+        Book.sort(comparar)
         res.json(Book);
         
     }catch(e){
@@ -103,6 +111,10 @@ exports.findThisBook = async (req,res) => {
         if(!Book){
             console.log('No se encotro este libro');
         }
+        function comparar ( a , b){
+            return   b.autor.karma - a.autor.karma
+        }
+        Book.sort(comparar)
         res.json(Book);
     }catch(e){
         console.log(e);

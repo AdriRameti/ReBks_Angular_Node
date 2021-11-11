@@ -22,6 +22,7 @@ const User = mongoose.Schema({
     favorites:[{type:String}],
     comments:[Comments],
     rating:[Rating],
+    karma:{type:Number},
     hash:String,
     salt:String
 });

@@ -41,4 +41,7 @@ export class UsersService {
   showRating(id:String):Observable<any>{
     return this.http.get(environment.url+'/user/rating/show/mostrar?id='+id);
   }
+  karma(body:Object):Observable<any>{
+    return this.http.post(environment.url+'/user/karma',body);
+  }
 }

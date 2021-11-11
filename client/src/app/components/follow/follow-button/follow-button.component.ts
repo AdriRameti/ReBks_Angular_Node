@@ -52,6 +52,16 @@ export class FollowButtonComponent{
       ));
     }
     )).subscribe((data)=>{
+      this.userService.currentUser.subscribe(data=>{
+        var id = data.id;
+        var karmaObject={
+          id:id,
+          karma:20
+        }
+        this.usersService.karma(karmaObject).subscribe(data=>{
+          console.log(data);
+        });
+      });
       if(data.length===0){
         this.usersService.follow(MyObjejct).subscribe(data=>{
           if(data==0){

@@ -184,6 +184,13 @@ export class CatDetailsComponent implements OnInit {
     var userId : any;
     this.userService.currentUser.subscribe(data=>{
       userId = data.id;
+      var karmaObject={
+        id:userId,
+        karma:25
+      }
+      this.UserService.karma(karmaObject).subscribe(data=>{
+        console.log(data);
+      });
     });
     if(userId&&slug){
       this._BooksService.findDetailsBook(slug).subscribe(data=>{

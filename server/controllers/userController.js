@@ -2,6 +2,24 @@ var mongoose = require('mongoose');
 var User = require('../models/models.infoUser')
 var auth = require('../controllers/auth');
 
+
+exports.karma = async(req,res)=>{
+    var id = mongoose.Types.ObjectId(req.body.id);
+    var karma = parseInt(req.body.karma);
+
+    User.findById(id).then(function(user){
+        if(user){
+            var myKarma = parseInt(user.karma);
+            var karmaUser = myKarma + karma;
+            user.karma = karmaUser;
+            user.save().then(function(data){
+                res.json(data);
+            });    
+        }
+
+
+    });
+}
 exports.showRating = async(req,res)=>{
     var idUser = req.query.id;
     User.findById(idUser).then(function(user){

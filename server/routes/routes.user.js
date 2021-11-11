@@ -8,6 +8,7 @@ router.get('/rating/show',auth.required,userControler.rating);
 router.get('/rating/show/mostrar',auth.required,userControler.showRating);
 router.post('/register',userControler.createUser);
 router.post('/login',userControler.readLogin);
+router.post('/karma',auth.required,userControler.karma);
 router.get('/showFav/:slug',auth.required,userControler.showFav);
 router.get('/showFoll/:userName',auth.required,userControler.showFoll);
 router.post('/favorite',auth.required,userControler.favorite);

@@ -169,6 +169,12 @@ img{
         padding-top: 0;
     }
 }
+.autor:hover{
+    cursor: pointer;
+    font-size: 23px;
+    color: black;
+    font-weight: bold;
+}
 .fa-star{
     cursor: pointer;
     font-size: 25px;

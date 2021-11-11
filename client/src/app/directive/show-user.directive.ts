@@ -6,12 +6,14 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { BooksService } from 'src/app/services/books/books.service';
 @Directive({
   selector: '[appShowUser]'
 })
 export class ShowUserDirective implements OnInit{
   condition!: boolean;
   constructor(
+    private _BooksService : BooksService,
     private templateRef: TemplateRef<any>,
     private userService: UserService,
     private viewContainer: ViewContainerRef
@@ -31,4 +33,5 @@ export class ShowUserDirective implements OnInit{
   @Input() set appShowUser(condition: boolean) {
     this.condition = condition;
   }
+
 }

@@ -27,6 +27,8 @@ import { FavButtonComponent } from './components/favorite/fav-button/fav-button.
 import { FollowButtonComponent } from './components/follow/follow-button/follow-button.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProfileCatComponent } from './components/profile-cat/profile-cat.component';
+import { DeleteCommentDirective } from './directive/delete-comment.directive';
+import { UsersProfileDirective } from './directive/users-profile.directive';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { ProfileCatComponent } from './components/profile-cat/profile-cat.compon
     LoginCatComponent,
     ShowUserDirective,
     ProfileComponent,
+    DeleteCommentDirective,
+    UsersProfileDirective,
     // ProfileCatComponent,
     // FollowButtonComponent,
     // FavButtonComponent,

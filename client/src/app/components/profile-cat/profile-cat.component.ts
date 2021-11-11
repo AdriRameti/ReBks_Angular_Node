@@ -1,8 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup,Validators,FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { BooksService } from 'src/app/services/books/books.service';
+import { Books } from 'src/app/models/books';
 
 @Component({
   selector: 'app-profile-cat',
@@ -16,11 +18,17 @@ export class ProfileCatComponent implements OnInit {
   isSubmitting = false;
   listFollow!: String[];
   listFavorite!:String[];
+  canModify!:boolean;
+  listProfileBooks!:Books[];
+  listname:String[] = [];
+  listUserBooks!:Books[];
   constructor(
     private router: Router,
     private userService: UserService,
     private fb: FormBuilder,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private ActivatedRoute:ActivatedRoute,
+    private _BooksService: BooksService
   ) { }
     profileForm = new FormGroup({
       userName: new FormControl('', Validators.required),
@@ -37,8 +45,25 @@ export class ProfileCatComponent implements OnInit {
     if(this.validaButton == false){
       this.changeStyle();
     }
+
     this.listFollow = this.userService.getCurrentUser().follow;
     this.listFavorite = this.userService.getCurrentUser().favorites;
+    var id = localStorage.getItem("id");
+    console.log(id);
+    if(id){
+      let limitBooks : number =  parseInt(localStorage.getItem('limit') || "0");
+      let skip : number = parseInt(localStorage.getItem('skip') || '0');
+      this._BooksService.booksUser(limitBooks,skip,id).subscribe(data => {
+        this.listUserBooks = data;
+        this.listname.push(data[0].autor.userName);
+        this._BooksService.paginationEmitter.emit(data);
+        this.canModify = true;
+        localStorage.removeItem("id");
+      });
+
+    }else{
+      this.canModify = false;
+    }
   }
 
   changeStyle(){

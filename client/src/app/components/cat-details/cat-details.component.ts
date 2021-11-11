@@ -42,10 +42,44 @@ export class CatDetailsComponent implements OnInit {
     });
     this.changeOption();
     this.printRate();
-    this.userService.currentUser.subscribe(user=>{
+    // this.userService.currentUser.subscribe(user=>{
+    //   var userName = user.userName;
+    //   let slug : string | null = localStorage.getItem('slug');
+    //   if(slug){
+    //     this._BooksService.findDetailsBook(slug).subscribe(data=>{
+    //       var autor = data[0].autor.userName;
+    //       if(userName===autor){
+    //         this.canModify= false;
+    //       }else{
+    //         this.canModify=true;
+    //       }
+    //     });
+    //   }
+    // });
+  }
+  delete(datos:any){
+    this._BooksService.deleteComment(datos).subscribe(data=>{
+      console.log(data);
+      if(data==0){
+        let slug : string | null = localStorage.getItem('slug');
+        if(slug){
+          this._BooksService.findDetailsBook(slug).subscribe(data=>{
+            this.listDetails = data;
+            this.listComments = data[0].comments;
+          });
+        }
+      }
     })
   }
-  delete(){
+  redirect(){
+    let slug : string | null = localStorage.getItem('slug');
+    if(slug){
+      this._BooksService.findDetailsBook(slug).subscribe(data=>{
+        var id = data[0].autor._id;
+        localStorage.setItem('id',id);
+        this.router.navigate(['profile']);
+      });
+    }
   }
   printRate(){
     var valId1; var valId2; var valId3; var valId4; var valId5;
@@ -290,6 +324,7 @@ export class CatDetailsComponent implements OnInit {
     let slug : string | null = localStorage.getItem('slug');
     if(slug){
       this._BooksService.findDetailsBook(slug).subscribe(data=>{
+        console.log(data);
         this.listDetails = data;
         var id = data[0]._id;
         this.listComments = data[0].comments;

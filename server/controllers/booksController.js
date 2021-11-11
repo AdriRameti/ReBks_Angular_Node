@@ -32,7 +32,42 @@ exports.createComment = async(req,res)=>{
         console.log(e);
     }
 }
-
+exports.booksUser = async(req,res)=>{
+    var limit =parseInt(req.params.limit);
+    var skip = parseInt(req.params.skip);
+    var idUser = Mongoose.Types.ObjectId(req.params.id); 
+    try{
+        const books = await book.find({"autor":idUser})
+        .populate('autor')
+        .limit(limit)
+        .skip(skip).then(function(data){
+            res.json(data);
+        });
+        
+    }catch(e){
+        console.log(e);
+    }
+    
+}
+exports.deleteComment = async(req,res)=>{
+    var idComment = Mongoose.Types.ObjectId(req.body._id);
+    book.findById(req.body.book).then(function(data){
+        if(data){
+           book.findOneAndUpdate({
+               comments:{$elemMatch:{_id:idComment}}
+           },{
+               $pull:{comments:{_id:idComment}}
+           }, {
+                'multi': true,
+                'upsert': false
+            }
+           ).then(function(data){
+               res.json(0);
+           });
+           
+        }
+    });
+}
 exports.findallBooks = async(req,res) =>{
     var limit = parseInt(req.query.limit);
     var skip = parseInt(req.query.skip);

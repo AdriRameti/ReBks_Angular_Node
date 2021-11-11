@@ -48,6 +48,7 @@
             <li>Año de publicación: <span>{{datos.any}}</span></li>
             <li>Estado: <span>{{datos.estado}}</span></li>
             <li>Tapa: <span>{{datos.tapa}}</span></li>
+            <li>Autor: <span (click)="redirect()">{{datos.autor.userName}}</span></li>
           </ul>
         </div>
   
@@ -92,7 +93,7 @@
 					<div class="comment-box">
 						<div class="comment-head">
 							<h6 class="comment-name by-author" >{{datos.autor.userName}}</h6>
-              <i class="fas fa-trash-alt" (click)="delete()"></i>
+              <i class="basura fas fa-trash-alt" (click)="delete(datos)" id="{{datos.autor.userName}}" *appDeleteComment="true"></i>
 							<i class="fa fa-heart"></i>
 						</div>
 						<div class="comment-content">

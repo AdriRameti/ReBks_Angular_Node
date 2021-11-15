@@ -59,7 +59,6 @@ export class CatDetailsComponent implements OnInit {
   }
   delete(datos:any){
     this._BooksService.deleteComment(datos).subscribe(data=>{
-      console.log(data);
       if(data==0){
         let slug : string | null = localStorage.getItem('slug');
         if(slug){

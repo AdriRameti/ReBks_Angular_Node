@@ -5,7 +5,8 @@ var auth = require('../controllers/auth');
 
 router.post('/', booksController.createBook);
 router.post('/comments',auth.required,booksController.createComment);
-router.post('/comments/delete',auth.required,booksController.deleteComment)
+router.post('/comments/delete',auth.required,booksController.deleteComment);
+router.post('/comments/fav',auth.required,booksController.updateComment);
 router.get('/pag', booksController.findallBooks);
 router.get('/:asignatura/:curso/:ensenanza', booksController.findThisBook)
 router.get('/:slug',booksController.findDetailsBook);

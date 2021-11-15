@@ -41,4 +41,7 @@ export class BooksService {
   booksUser(limit:Number,skip:Number,id:String):Observable<any>{
     return this.http.get(environment.url+'/books/user/'+limit+'/'+skip+'/'+id);
   }
+  updateComment(body:Object):Observable<any>{
+    return this.http.post(environment.url+'/books/comments/fav',body);
+  }
 }

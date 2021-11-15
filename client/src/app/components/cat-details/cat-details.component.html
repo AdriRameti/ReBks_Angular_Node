@@ -94,7 +94,7 @@
 						<div class="comment-head">
 							<h6 class="comment-name by-author" >{{datos.autor.userName}}</h6>
               <i class="basura fas fa-trash-alt" (click)="delete(datos)" id="{{datos.autor.userName}}" *appDeleteComment="true"></i>
-							<i class="fa fa-heart"></i>
+							<i class="fa fa-heart blue" (click)="contFav(datos._id)" id="favoriteComment">{{datos.favorito}}</i>
 						</div>
 						<div class="comment-content">
 							{{datos.body}}

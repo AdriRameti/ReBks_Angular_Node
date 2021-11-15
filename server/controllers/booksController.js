@@ -11,6 +11,23 @@ exports.createBook = async(req,res) => {
         console.log(e);
     }
 }
+exports.booksUser = async(req,res)=>{
+    var limit =parseInt(req.params.limit);
+    var skip = parseInt(req.params.skip);
+    var idUser = Mongoose.Types.ObjectId(req.params.id); 
+    try{
+        const books = await book.find({"autor":idUser})
+        .populate('autor')
+        .limit(limit)
+        .skip(skip).then(function(data){
+            res.json(data);
+        });
+        
+    }catch(e){
+        console.log(e);
+    }
+    
+}
 exports.createComment = async(req,res)=>{
     var Comment = req.body;
     var id = Mongoose.Types.ObjectId(req.body.book);
@@ -32,22 +49,41 @@ exports.createComment = async(req,res)=>{
         console.log(e);
     }
 }
-exports.booksUser = async(req,res)=>{
-    var limit =parseInt(req.params.limit);
-    var skip = parseInt(req.params.skip);
-    var idUser = Mongoose.Types.ObjectId(req.params.id); 
-    try{
-        const books = await book.find({"autor":idUser})
-        .populate('autor')
-        .limit(limit)
-        .skip(skip).then(function(data){
-            res.json(data);
-        });
-        
-    }catch(e){
-        console.log(e);
-    }
+exports.updateComment = async(req,res)=>{
+    var id = Mongoose.Types.ObjectId(req.body.id);
+    var idUser = req.payload.id;
+    book.aggregate().unwind({path:'$comments'})
+    .match({'comments._id':id})
+    .project({'comments':1})
+    .then(function(comment){
+        var userFav = comment[0].comments.usersFav.map(id => id.toString());
+        var validation = false;
+        if(comment){
+            validation = userFav.includes(idUser.toString());
+            if(validation){
+                book.findOneAndUpdate({
+                        comments:{$elemMatch:{_id:id}}
+                    },
+                    {$pull:{'comments.$.usersFav':idUser}, $inc:{'comments.$.favorito':-1}}
     
+                ).then(function(data){
+                    res.json(0);
+                });
+            }else{
+            book.findOneAndUpdate({
+                comments:{$elemMatch:{_id:id}}
+            },
+                {$push:{'comments.$.usersFav':idUser}, $inc:{'comments.$.favorito':1}}
+
+            ).then(function(data){
+                res.json(1);
+            });
+            }
+        }else{
+            res.json(1);
+        }
+        
+    })
 }
 exports.deleteComment = async(req,res)=>{
     var idComment = Mongoose.Types.ObjectId(req.body._id);

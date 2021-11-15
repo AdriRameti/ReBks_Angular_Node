@@ -39,17 +39,16 @@ export class ProfileCatComponent implements OnInit {
     });
   ngOnInit(): void {
     Object.assign(this.user, this.userService.getCurrentUser());
-    // Fill the form
     this.profileForm.patchValue(this.user);
     this.validaButton = (document.getElementById('continueForm') as HTMLInputElement)?.disabled
     if(this.validaButton == false){
       this.changeStyle();
     }
-
-    this.listFollow = this.userService.getCurrentUser().follow;
-    this.listFavorite = this.userService.getCurrentUser().favorites;
+    this.userService.currentUser.subscribe(data=>{
+      this.listFavorite = data.favorites;
+      this.listFollow = data.follow;
+    });
     var id = localStorage.getItem("id");
-    console.log(id);
     if(id){
       let limitBooks : number =  parseInt(localStorage.getItem('limit') || "0");
       let skip : number = parseInt(localStorage.getItem('skip') || '0');

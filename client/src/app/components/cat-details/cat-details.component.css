@@ -169,6 +169,12 @@ img{
         padding-top: 0;
     }
 }
+.blue{
+    color:#03658c;
+}
+.favComent{
+    background-color:#03658c ;
+}
 .autor:hover{
     cursor: pointer;
     font-size: 23px;

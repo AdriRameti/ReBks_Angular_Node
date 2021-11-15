@@ -10,7 +10,9 @@ const imgSchema = mongoose.Schema({
 const Comments = mongoose.Schema({
     body:{type:String},
     autor:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    book: {type: mongoose.Schema.Types.ObjectId, ref: 'book'}
+    book: {type: mongoose.Schema.Types.ObjectId, ref: 'book'},
+    favorito:{type:Number},
+    usersFav:[{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
 });
 const bookSchema = mongoose.Schema({
     slug:{type:String, lowercase: true, unique: true},

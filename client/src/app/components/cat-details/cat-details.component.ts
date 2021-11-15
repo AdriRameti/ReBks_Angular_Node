@@ -81,6 +81,24 @@ export class CatDetailsComponent implements OnInit {
       });
     }
   }
+  contFav(id:string){
+    this.userService.currentUser.subscribe(data=>{
+
+      var body = {
+        id:id,
+      }
+      this._BooksService.updateComment(body).subscribe(data=>{
+        let slug : string | null = localStorage.getItem('slug');
+        if(slug){
+          this._BooksService.findDetailsBook(slug).subscribe(data=>{
+            this.listDetails = data;
+            this.listComments = data[0].comments;
+          });
+        }
+      });
+    });
+
+  }
   printRate(){
     var valId1; var valId2; var valId3; var valId4; var valId5;
     var firstStar; var secondStar; var threeStar; var fourStar; var fiveStar;
@@ -297,7 +315,8 @@ export class CatDetailsComponent implements OnInit {
       var comment = {
         body:body,
         autor:autor,
-        book:book
+        book:book,
+        favorito:0
       };
       this._BooksService.comments(comment).subscribe(data=>{
         if(data == 0){
@@ -305,7 +324,6 @@ export class CatDetailsComponent implements OnInit {
           if(slug){
             this._BooksService.findDetailsBook(slug).subscribe(data=>{
               this.listDetails = data;
-              var id = data[0]._id;
               this.listComments = data[0].comments;
             });
           }
@@ -333,7 +351,6 @@ export class CatDetailsComponent implements OnInit {
       this._BooksService.findDetailsBook(slug).subscribe(data=>{
         console.log(data);
         this.listDetails = data;
-        var id = data[0]._id;
         this.listComments = data[0].comments;
       });
     }

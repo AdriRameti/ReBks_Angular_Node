@@ -1,0 +1,23 @@
+version: '3'
+services:
+  angular:
+    build: ./client
+    ports:
+      - ${CLIENT_PORT}
+    networks:
+      - ourbooks
+  express:
+    image: server_image
+    ports:
+      - ${SERVER_PORT}
+    networks:
+      - ourbooks
+  mongo:
+    build: .
+    container_name: mongodb
+    ports:
+      - ${MONGO_PORT}
+    networks:
+      - ourbooks
+networks:
+  ourbooks:

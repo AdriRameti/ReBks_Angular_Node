@@ -7,10 +7,16 @@ const routesCourses = require('./routes/routes.courses');
 const routesEnsenanza = require('./routes/routes.ensenanza');
 const routesUsers = require('./routes/routes.user');
 const app = express();
-
+var dd_options = {
+    'response_code':true,
+    'tags': ['app:express']
+  }
+var connect_datadog = require('connect-datadog')(dd_options);
 conectarDB();
 
 const port = process.env.PORT || 3000
+
+app.use(connect_datadog);
 
 app.use(cors())
 

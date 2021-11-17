@@ -6,6 +6,7 @@ services:
       - ${CLIENT_PORT}
     networks:
       - ourbooks
+      - logs-network
   mongo:
     build: .
     container_name: mongodb
@@ -13,18 +14,22 @@ services:
       - ${MONGO_PORT}
     networks:
       - ourbooks
+      - logs-network
   express:
     build: ./server
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "node", "service": "express"}]'
     env_file:
       - ./server/variablesDb.env
     ports:
       - ${SERVER_PORT}
     networks:
       - ourbooks
+      - logs-network
     depends_on:
       - mongo
+
 networks:
   ourbooks:
-  default: 
-    external: 
-      name: logs-network
+  logs-network:
+    external: true

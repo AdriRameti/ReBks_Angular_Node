@@ -3,13 +3,14 @@ services:
   datadog:
     build: datadog
     environment:
-     - DD_API_KEY=${KEY}
+     - DD_API_KEY=26b085ba9f4da95bfbd94570a25a6219
      - DD_SITE=datadoghq.eu
-    volumes:
-     - /var/run/docker.sock:/var/run/docker.sock
-     - /proc/:/host/proc/:ro
-     - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+     - DD_LOGS_ENABLED=true
+     - DD_LOGS_CONFIG_DOCKER_CONTAINER_USE_FILE=true
+    networks:
+      - logs-network
+    ports:
+      - "8126:8126/tcp"
 networks: 
-  default: 
-    external: 
-      name: logs-network
+  logs-network:
+    external: true

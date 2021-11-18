@@ -2,6 +2,7 @@ const express = require('express');
 const conectarDB = require('./config/db');
 const cors = require("cors");
 const bodyParser = require('body-parser');
+const {logger} = require('./logger');
 const routesBooks = require('./routes/routes.books');
 const routesCourses = require('./routes/routes.courses');
 const routesEnsenanza = require('./routes/routes.ensenanza');
@@ -15,22 +16,9 @@ var dd_options = {
   'tags': ['app:express']
 }
 var connect_datadog = require('connect-datadog')(dd_options);
-const { createLogger, format, transports } = require('winston');
 
-const logger = createLogger({
-level: 'info',
-exitOnError: false,
-format: format.json(),
-transports: [
-  new transports.File({ filename: `C:/datadog-agent/my-logs.log` }),
-],
-});
-
-module.exports = logger;
-
-// Example logs
-logger.log('info', 'Hello simple log!');
-logger.info('Hello log with metas',{color: 'blue' });
+logger.log('info', 'Hola controlador servidor');
+logger.info('Controlador con metas',{color: 'blue' });
 
 const tracer = require('dd-trace').init({
   logInjection: true

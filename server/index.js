@@ -11,19 +11,6 @@ const app = express();
 
 conectarDB();
 
-var dd_options = {
-  'response_code':true,
-  'tags': ['app:express']
-}
-var connect_datadog = require('connect-datadog')(dd_options);
-
-logger.log('info', 'Hola controlador servidor');
-logger.info('Controlador con metas',{color: 'blue' });
-
-const tracer = require('dd-trace').init({
-  logInjection: true
-});
-
 const port = process.env.PORT || 3000
 
 app.use(connect_datadog);

@@ -17,8 +17,6 @@ services:
       - logs-network
   express:
     build: ./server
-    labels:
-      com.datadoghq.ad.logs: '[{"source": "nodejs", "service": "express"}]'
     env_file:
       - ./server/variablesDb.env
     ports:

@@ -7,6 +7,7 @@ services:
      - DD_SITE=datadoghq.eu
      - DD_LOGS_ENABLED=true
      - DD_LOGS_CONFIG_DOCKER_CONTAINER_USE_FILE=true
+     - DD_LOGS_INJECTION=true
     networks:
       - logs-network
     ports:

@@ -12,6 +12,7 @@ exports.createEnsenanza = async(req,res) => {
 }
 
 exports.findAllEnsenanza = async (req,res) =>{
+    console.log('Hola enseñanzas');
     try{
         const Ensenanzas = await ensenanza.find();
         res.json(Ensenanzas);

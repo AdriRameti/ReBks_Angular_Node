@@ -26,7 +26,7 @@ Aquí alojaremos todos los elementos de la práctica. La rama la crearemos con e
 git branch main_docker_compose
 ```
 
-![New Branch](/img/crear_rama_git.png)
+![image](https://user-images.githubusercontent.com/75810680/142489850-1cb0def8-e459-4d14-a48d-31f5c946130f.png)
 
 Una vez hemos creado la rama, verificaremos que se ha creado bien con el comando:
 ```s
@@ -59,7 +59,8 @@ RUN npm install
 EXPOSE 4200
 CMD ng serve --host 0.0.0.0
 ```s
-![Client](/img/Dockerfile_client.png)
+
+![image](https://user-images.githubusercontent.com/75810680/142489998-929d8221-e866-47c7-b799-c96db6662e6c.png)
 
 ### Crear el Dockerfile del servidor
 Creado ya el dockerfile del cliente, continuaremos por la parte del servidor creando su dockerfile. 
@@ -88,7 +89,7 @@ EXPOSE 3000
 CMD node index.js
 ```s
 
-![Client](/img/Dockerfile_server.png)
+![image](https://user-images.githubusercontent.com/75810680/142490063-c3b0c722-e5c1-4164-83ee-e5fcf9bdc554.png)
 
 ### Base de datos
 Al utilizar una base de datos como es Mongo, necesitaremos de alguna forma poder extraer los datos que tenemos en ella y para eso deberemos entender que es mongodump
@@ -103,7 +104,8 @@ Para exportar la información de nuestra base de datos utilizaremos un comando e
 mongodump --host 127.0.0.1:27017 -db ourbooks
 ```
 Una vez realizada la exportación, verificaremos que se han creado el directorio con los datos.
-![Dump](/img/dump.png)
+
+![image](https://user-images.githubusercontent.com/75810680/142490135-0045e258-886a-429f-b114-498fee9d7045.png)
 
 ##### Crear Dockerfile de Mongo
 Para poder asignar estos datos en nuestra aplicación, deberemos crear un contenedor de Mongo. En este caso partiremos de un Dockerfile sencillo para Mongo en el cual lo que cabe recalcar es que crearemos una carpeta dump para copiar el contenido de la exportación a esta. El puerto que utilizaremos será el 27017.
@@ -115,8 +117,8 @@ EXPOSE 27017
 ```
 ### Crear archivo .env 
 En este punto, lo que haremos será crear un archivo .env donde declararemos los puertos de los contenedores. Es una manera optima de realizar la asignacion de puertos ya que si se cambiaran por cualquier necesidad, solo modificariamos el valor de estos en el archivo creado. En este archivo también se puede declarar variables sensibles.
-![ENV](/img/env.png)
 
+![image](https://user-images.githubusercontent.com/75810680/142490208-86591d8a-f31a-4e4e-a004-7367f3cc9a42.png)
 
 ### Crear docker-compose 
 En este paso, crearemos un docker-compose con los servicios necesarios para el despliegue de la aplicación.
@@ -263,13 +265,17 @@ En localhost:4200 encontraremos el despliegue de nuestra aplicación
 ![image](https://user-images.githubusercontent.com/75810680/142489700-7f778c26-a1f8-43f0-9777-685a04d5d257.png)
 
 En localhost:8080/metrics encontraremos las métricas (se debe iniciar el server.js antes)
-![metrics](/img/metrics.png)
+
+![image](https://user-images.githubusercontent.com/75810680/142490291-236a7013-cba7-40be-b7d6-4fd122b71023.png)
 
 En localhost:9090 tendremos el dashboard de Prometheus
-![prometheus](/img/prometheus.png)
+
+![image](https://user-images.githubusercontent.com/75810680/142490345-bb784fb8-26c0-408c-a46c-00d58fc7b94c.png)
 
 En localhost:3500 tendremos el dashboard de Grafana
-![grafana](/img/grafana.png)
+
+![image](https://user-images.githubusercontent.com/75810680/142490401-b942737b-40d7-4b1b-bb93-0808eedbf7a8.png)
+
 
 
 
